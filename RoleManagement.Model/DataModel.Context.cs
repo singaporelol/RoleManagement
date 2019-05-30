@@ -28,5 +28,7 @@ namespace RoleManagement.Model
         public virtual DbSet<Role> Role { get; set; }
         public virtual DbSet<UserInfo> UserInfo { get; set; }
         public virtual DbSet<Action> Action { get; set; }
+        public virtual DbSet<ActionModule> ActionModules { get; set; }
+        public virtual DbSet<Menu> Menu { get; set; }
     }
 }

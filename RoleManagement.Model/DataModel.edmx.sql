@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 05/04/2019 14:53:28
+-- Date Created: 05/30/2019 23:18:17
 -- Generated from EDMX file: C:\Users\xueqian\source\RoleManagement\RoleManagement.Model\DataModel.edmx
 -- --------------------------------------------------
 
@@ -70,7 +70,23 @@ CREATE TABLE [dbo].[Action] (
     [ParentId] int  NOT NULL,
     [ActionName] nvarchar(max)  NOT NULL,
     [Url] nvarchar(max)  NOT NULL,
-    [IsMenu] bit  NOT NULL
+    [IsMenu] bit  NOT NULL,
+    [ActionModuleId] int  NOT NULL
+);
+GO
+
+-- Creating table 'ActionModules'
+CREATE TABLE [dbo].[ActionModules] (
+    [Id] int IDENTITY(1,1) NOT NULL,
+    [ParentId] int  NOT NULL,
+    [Name] nvarchar(max)  NOT NULL
+);
+GO
+
+-- Creating table 'Menu'
+CREATE TABLE [dbo].[Menu] (
+    [Id] int IDENTITY(1,1) NOT NULL,
+    [Action_Id] int  NOT NULL
 );
 GO
 
@@ -100,6 +116,18 @@ GO
 -- Creating primary key on [Id] in table 'Action'
 ALTER TABLE [dbo].[Action]
 ADD CONSTRAINT [PK_Action]
+    PRIMARY KEY CLUSTERED ([Id] ASC);
+GO
+
+-- Creating primary key on [Id] in table 'ActionModules'
+ALTER TABLE [dbo].[ActionModules]
+ADD CONSTRAINT [PK_ActionModules]
+    PRIMARY KEY CLUSTERED ([Id] ASC);
+GO
+
+-- Creating primary key on [Id] in table 'Menu'
+ALTER TABLE [dbo].[Menu]
+ADD CONSTRAINT [PK_Menu]
     PRIMARY KEY CLUSTERED ([Id] ASC);
 GO
 
@@ -150,6 +178,36 @@ GO
 CREATE INDEX [IX_FK_ActionRole_Role]
 ON [dbo].[ActionRole]
     ([Role_Id]);
+GO
+
+-- Creating foreign key on [Action_Id] in table 'Menu'
+ALTER TABLE [dbo].[Menu]
+ADD CONSTRAINT [FK_MenuAction]
+    FOREIGN KEY ([Action_Id])
+    REFERENCES [dbo].[Action]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_MenuAction'
+CREATE INDEX [IX_FK_MenuAction]
+ON [dbo].[Menu]
+    ([Action_Id]);
+GO
+
+-- Creating foreign key on [ActionModuleId] in table 'Action'
+ALTER TABLE [dbo].[Action]
+ADD CONSTRAINT [FK_ActionModuleAction]
+    FOREIGN KEY ([ActionModuleId])
+    REFERENCES [dbo].[ActionModules]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_ActionModuleAction'
+CREATE INDEX [IX_FK_ActionModuleAction]
+ON [dbo].[Action]
+    ([ActionModuleId]);
 GO
 
 -- --------------------------------------------------

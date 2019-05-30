@@ -12,23 +12,19 @@ namespace RoleManagement.Model
     using System;
     using System.Collections.Generic;
     
-    public partial class Action
+    public partial class ActionModule
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Action()
+        public ActionModule()
         {
-            this.Role = new HashSet<Role>();
+            this.Actions = new HashSet<Action>();
         }
     
         public int Id { get; set; }
         public int ParentId { get; set; }
-        public string ActionName { get; set; }
-        public string Url { get; set; }
-        public bool IsMenu { get; set; }
-        public int ActionModuleId { get; set; }
+        public string Name { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Role> Role { get; set; }
-        public virtual ActionModule ActionModule { get; set; }
+        public virtual ICollection<Action> Actions { get; set; }
     }
 }
