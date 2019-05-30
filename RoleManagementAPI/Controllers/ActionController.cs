@@ -14,54 +14,62 @@ using HttpPostAttribute = System.Web.Http.HttpPostAttribute;
 using AllowAnonymousAttribute = System.Web.Http.AllowAnonymousAttribute;
 using HttpDeleteAttribute = System.Web.Http.HttpDeleteAttribute;
 using Action = RoleManagement.Model.Action;
+using Newtonsoft.Json;
 
 namespace RoleManagementWebAPI.Controllers
 {
     public class ActionController : ApiController
     {
-        //ActionService actionService = new ActionService();
-        //public IHttpActionResult Get()
-        //{
-        //    var k = actionService.GetEntities(u => u.Id > 0).Select(m => new { m.Id, m.ActionName, m.ParentId, m.Url, m.IsMenu });
-        //    if (k == null)
-        //    {
-        //        return Ok(new
-        //        {
-        //            code = 0,
-        //            data = ""
-        //        });
-        //    }
-        //    var dataObj = new
-        //    {
-        //        code = 1,
-        //        data = k.ToList()
-        //    };
+        ActionService actionService = new ActionService();
+        public IHttpActionResult Get()
+        {
+            var k = actionService.GetEntities(u => u.Id > 0).Select(m => new { m.Id, m.ActionName, m.ParentId, m.Url, m.IsMenu });
+            if (k == null)
+            {
+                return Ok(new
+                {
+                    code = 0,
+                    data = ""
+                });
+            }
+            var dataObj = new
+            {
+                code = 1,
+                data = k.ToList()
+            };
 
-        //    return Ok(dataObj);
-        //}
+            return Ok(dataObj);
+        }
 
-        //[HttpPost]
-        //[AllowAnonymous]
-        //[Route("api/addAction")]
-        //public IHttpActionResult Post([FromBody] dynamic data)
-        //{
-        //    Action action = actionService.Add(new Action()
-        //    {
-        //        ParentId = data["ParentId"].Value,
-        //        ActionName = data["ActionName"].Value,
-        //        Url=data["Url"].Value,
-        //        IsMenu=data["IsMenu"].Value
+        [HttpPost]
+        [AllowAnonymous]
+        [Route("api/addAction")]
+        public IHttpActionResult Post([FromBody] dynamic data)
+        {
+            //JsonSerializer serializer = new JsonSerializer();
 
-        //    });
-        //    if (action == null)
-        //    {
-        //        return Ok(new
-        //        {
-        //            code = 0,
-        //            data = ""
-        //        });
-        //    }
-        //    return Ok(new { code = 1 });
-        //}
+            Action action = actionService.Add(new Action()
+            {
+                ParentId = Convert.ToInt32(data["ParentId"].Value),
+                ActionName = data["ActionName"].Value,
+                Url = data["Url"].Value,
+                IsMenu =(Boolean) data["IsMenu"].Value
+
+            });
+            //把权限给系统管理员
+            RoleService roleservice = new RoleService();
+            var role= roleservice.GetEntities(u => u.Id == 1).FirstOrDefault();
+            role.Action.Add(action);
+            roleservice.Update(role);
+            if (action == null)
+            {
+                return Ok(new
+                {
+                    code = 0,
+                    data = ""
+                });
+            }
+            return Ok(new { code = 1 });
+        }
     }
 }

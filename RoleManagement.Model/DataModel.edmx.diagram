@@ -5,11 +5,15 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="e36677bf3ae9483297c10c6856c03f76" Name="Diagram1" >
-        <EntityTypeShape EntityType="DataModel.Role" Width="1.5" PointX="5.875" PointY="1.25" />
-        <EntityTypeShape EntityType="DataModel.UserInfo" Width="1.5" PointX="2.875" PointY="1.25" />
+        <EntityTypeShape EntityType="DataModel.Role" Width="1.5" PointX="9.25" PointY="2" />
+        <EntityTypeShape EntityType="DataModel.UserInfo" Width="1.5" PointX="6.875" PointY="2" />
         <AssociationConnector Association="DataModel.RoleUser" />
-        <EntityTypeShape EntityType="DataModel.Action" Width="1.5" PointX="8.75" PointY="1.25" />
+        <EntityTypeShape EntityType="DataModel.Action" Width="1.5" PointX="12" PointY="1.625" />
         <AssociationConnector Association="DataModel.ActionRole" />
+        <EntityTypeShape EntityType="DataModel.ActionModule" Width="1.5" PointX="14.375" PointY="3.625" />
+        <EntityTypeShape EntityType="DataModel.Menu" Width="1.5" PointX="14.25" PointY="1.625" />
+        <AssociationConnector Association="DataModel.MenuAction" />
+        <AssociationConnector Association="DataModel.ActionModuleAction" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

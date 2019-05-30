@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 05/02/2019 12:40:32
+-- Date Created: 05/04/2019 14:53:28
 -- Generated from EDMX file: C:\Users\xueqian\source\RoleManagement\RoleManagement.Model\DataModel.edmx
 -- --------------------------------------------------
 
@@ -67,7 +67,7 @@ GO
 -- Creating table 'Action'
 CREATE TABLE [dbo].[Action] (
     [Id] int IDENTITY(1,1) NOT NULL,
-    [ParentId] nvarchar(max)  NOT NULL,
+    [ParentId] int  NOT NULL,
     [ActionName] nvarchar(max)  NOT NULL,
     [Url] nvarchar(max)  NOT NULL,
     [IsMenu] bit  NOT NULL

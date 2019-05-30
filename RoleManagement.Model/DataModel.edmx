@@ -44,7 +44,7 @@
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="ParentId" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="ParentId" Type="int" Nullable="false" />
     <Property Name="ActionName" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Url" Type="nvarchar(max)" Nullable="false" />
     <Property Name="IsMenu" Type="bit" Nullable="false" />
@@ -109,6 +109,16 @@
             <End Role="Action" EntitySet="Action" />
             <End Role="Role" EntitySet="Role" />
           </AssociationSet>
+          <EntitySet Name="ActionModules" EntityType="DataModel.ActionModule" />
+          <EntitySet Name="Menu" EntityType="DataModel.Menu" />
+          <AssociationSet Name="MenuAction" Association="DataModel.MenuAction">
+            <End Role="Menu" EntitySet="Menu" />
+            <End Role="Action" EntitySet="Action" />
+          </AssociationSet>
+          <AssociationSet Name="ActionModuleAction" Association="DataModel.ActionModuleAction">
+            <End Role="ActionModule" EntitySet="ActionModules" />
+            <End Role="Action" EntitySet="Action" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Role">
           <Key>
@@ -147,14 +157,49 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <NavigationProperty Name="Role" Relationship="DataModel.ActionRole" FromRole="Action" ToRole="Role" />
-          <Property Name="ParentId" Type="String" Nullable="false" />
+          <Property Name="ParentId" Type="Int32" Nullable="false" />
           <Property Name="ActionName" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
           <Property Name="Url" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
           <Property Name="IsMenu" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Menu" Relationship="DataModel.MenuAction" FromRole="Action" ToRole="Menu" />
+          <NavigationProperty Name="ActionModule" Relationship="DataModel.ActionModuleAction" FromRole="Action" ToRole="ActionModule" />
+          <Property Name="ActionModuleId" Type="Int32" Nullable="false" />
         </EntityType>
         <Association Name="ActionRole">
           <End Type="DataModel.Action" Role="Action" Multiplicity="*" />
           <End Type="DataModel.Role" Role="Role" Multiplicity="*" />
+        </Association>
+        <EntityType Name="ActionModule">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ParentId" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" />
+          <NavigationProperty Name="Actions" Relationship="DataModel.ActionModuleAction" FromRole="ActionModule" ToRole="Action" />
+        </EntityType>
+        <EntityType Name="Menu">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Action" Relationship="DataModel.MenuAction" FromRole="Menu" ToRole="Action" />
+        </EntityType>
+        <Association Name="MenuAction">
+          <End Type="DataModel.Menu" Role="Menu" Multiplicity="1" />
+          <End Type="DataModel.Action" Role="Action" Multiplicity="1" />
+        </Association>
+        <Association Name="ActionModuleAction">
+          <End Type="DataModel.ActionModule" Role="ActionModule" Multiplicity="1" />
+          <End Type="DataModel.Action" Role="Action" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ActionModule">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Action">
+              <PropertyRef Name="ActionModuleId" />
+            </Dependent>
+          </ReferentialConstraint>
         </Association>
       </Schema>
     </edmx:ConceptualModels>

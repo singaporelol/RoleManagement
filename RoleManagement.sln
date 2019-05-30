@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RoleManagement.Service", "R
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RoleManagementAPI", "RoleManagementAPI\RoleManagementAPI.csproj", "{84A2AAB6-7824-4A8D-B46C-E15471CA06E2}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RoleManagement.Utils", "RoleManagement.Utils\RoleManagement.Utils.csproj", "{32917503-F9D0-4405-B575-76E31E76F459}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{84A2AAB6-7824-4A8D-B46C-E15471CA06E2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{84A2AAB6-7824-4A8D-B46C-E15471CA06E2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{84A2AAB6-7824-4A8D-B46C-E15471CA06E2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{32917503-F9D0-4405-B575-76E31E76F459}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{32917503-F9D0-4405-B575-76E31E76F459}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{32917503-F9D0-4405-B575-76E31E76F459}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{32917503-F9D0-4405-B575-76E31E76F459}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

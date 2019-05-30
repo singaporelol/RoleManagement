@@ -8,16 +8,51 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using Action = RoleManagement.Model.Action;
 
 namespace RoleManagementWebAPI.Controllers
 {
     public class UserInfoController : ApiController
     {
+        UserInfoService userInfoService = new UserInfoService();
+        //getUserAuth
+        [HttpGet]
+        [Route("api/GetUserAuth")]
+        public IHttpActionResult GetUserAuth(string name)
+        {
+            //验证用户是否存在
+            UserInfo userinfo = userInfoService.GetEntities(u => u.UserName == name).ToList()[0];
+            if (userinfo == null)
+            {
+                return Ok(new
+                {
+                    code = 0,
+                    data = ""
+                });
+            }
+            //加载登录用户对应的权限菜单
+            List<Action> userMenu = userInfoService.GetUserMenu(userinfo.UserName);
+            var dataObj = new
+            {
+                code = 1,
+                userMenu = JsonConvert.SerializeObject(userMenu,Formatting.None, new JsonSerializerSettings {
+                    ReferenceLoopHandling = ReferenceLoopHandling.Ignore,
+                    PreserveReferencesHandling =PreserveReferencesHandling.None }),
+                userinfo = new
+                {
+                    userinfo.UserName,
+                    userinfo.Password
+                }
+
+            };
+
+            return Ok(dataObj);
+        }
 
         public IHttpActionResult Get(int id)
         {
             
-            UserInfoService userInfoService = new UserInfoService();
+            
 
             var k= userInfoService.GetEntityById(id);
             if (k == null)
@@ -43,8 +78,6 @@ namespace RoleManagementWebAPI.Controllers
         }
         public IHttpActionResult Get()
         {
-
-            UserInfoService userInfoService = new UserInfoService();
 
             var k = userInfoService.GetEntities(u=>u.Id>0).Select(m=> new {m.Role.RoleName,m.UserName,m.Id});
             if (k == null)
