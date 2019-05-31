@@ -4,4 +4,9 @@
     <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\RoleManagement.Model\RoleManagement.Model.csproj" />
+    <ProjectReference Include="..\RoleManagement.Service\RoleManagement.Service.csproj" />
+  </ItemGroup>
+
 </Project>

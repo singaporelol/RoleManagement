@@ -42,6 +42,10 @@ namespace RoleManagement.Service
         {
             return GetCurrentDal.Add(user);
         }
+        public IEnumerable<T> AddRange(IEnumerable<T> user)
+        {
+            return GetCurrentDal.AddRange(user);
+        }
         public bool Update(T user)
         {
             return GetCurrentDal.Update(user);

@@ -2,8 +2,8 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 05/30/2019 23:18:17
--- Generated from EDMX file: C:\Users\xueqian\source\RoleManagement\RoleManagement.Model\DataModel.edmx
+-- Date Created: 05/31/2019 18:47:31
+-- Generated from EDMX file: C:\Users\xueqian\Documents\Work\RoleRelavant\RoleManagement\RoleManagement.Model\DataModel.edmx
 -- --------------------------------------------------
 
 SET QUOTED_IDENTIFIER OFF;
@@ -26,6 +26,9 @@ GO
 IF OBJECT_ID(N'[dbo].[FK_ActionRole_Role]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[ActionRole] DROP CONSTRAINT [FK_ActionRole_Role];
 GO
+IF OBJECT_ID(N'[dbo].[FK_ActionModuleAction]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Action] DROP CONSTRAINT [FK_ActionModuleAction];
+GO
 
 -- --------------------------------------------------
 -- Dropping existing tables
@@ -39,6 +42,12 @@ IF OBJECT_ID(N'[dbo].[UserInfo]', 'U') IS NOT NULL
 GO
 IF OBJECT_ID(N'[dbo].[Action]', 'U') IS NOT NULL
     DROP TABLE [dbo].[Action];
+GO
+IF OBJECT_ID(N'[dbo].[ActionModules]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[ActionModules];
+GO
+IF OBJECT_ID(N'[dbo].[Menu]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[Menu];
 GO
 IF OBJECT_ID(N'[dbo].[ActionRole]', 'U') IS NOT NULL
     DROP TABLE [dbo].[ActionRole];
@@ -86,7 +95,8 @@ GO
 -- Creating table 'Menu'
 CREATE TABLE [dbo].[Menu] (
     [Id] int IDENTITY(1,1) NOT NULL,
-    [Action_Id] int  NOT NULL
+    [ParentId] int  NOT NULL,
+    [Title] nvarchar(max)  NOT NULL
 );
 GO
 
@@ -178,21 +188,6 @@ GO
 CREATE INDEX [IX_FK_ActionRole_Role]
 ON [dbo].[ActionRole]
     ([Role_Id]);
-GO
-
--- Creating foreign key on [Action_Id] in table 'Menu'
-ALTER TABLE [dbo].[Menu]
-ADD CONSTRAINT [FK_MenuAction]
-    FOREIGN KEY ([Action_Id])
-    REFERENCES [dbo].[Action]
-        ([Id])
-    ON DELETE NO ACTION ON UPDATE NO ACTION;
-GO
-
--- Creating non-clustered index for FOREIGN KEY 'FK_MenuAction'
-CREATE INDEX [IX_FK_MenuAction]
-ON [dbo].[Menu]
-    ([Action_Id]);
 GO
 
 -- Creating foreign key on [ActionModuleId] in table 'Action'

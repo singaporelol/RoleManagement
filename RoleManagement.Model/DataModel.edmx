@@ -24,10 +24,6 @@
       <End Role="Role" EntitySet="Role" />
       <End Role="ActionRole" EntitySet="ActionRole" />
     </AssociationSet>
-    <AssociationSet Name="MenuAction" Association="DataModel.Store.MenuAction">
-      <End Role="Menu" EntitySet="Menu" />
-      <End Role="Action" EntitySet="Action" />
-    </AssociationSet>
     <AssociationSet Name="ActionModuleAction" Association="DataModel.Store.ActionModuleAction">
       <End Role="ActionModule" EntitySet="ActionModules" />
       <End Role="Action" EntitySet="Action" />
@@ -73,7 +69,8 @@
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="Action_Id" Type="int" Nullable="false" />
+    <Property Name="ParentId" Type="int" Nullable="false" />
+    <Property Name="Title" Type="nvarchar(max)" Nullable="false" />
   </EntityType>
   <EntityType Name="ActionRole">
     <Key>
@@ -92,18 +89,6 @@
       </Principal>
       <Dependent Role="User">
         <PropertyRef Name="RoleId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="MenuAction">
-    <End Role="Menu" Type="DataModel.Store.Menu" Multiplicity="*" />
-    <End Role="Action" Type="DataModel.Store.Action" Multiplicity="1" />
-    <ReferentialConstraint>
-      <Principal Role="Action">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="Menu">
-        <PropertyRef Name="Action_Id" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -292,6 +277,8 @@
       <EntityTypeMapping TypeName="IsTypeOf(DataModel.Menu)">
         <MappingFragment StoreEntitySet="Menu">
           <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="ParentId" ColumnName="ParentId" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

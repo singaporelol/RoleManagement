@@ -72,7 +72,12 @@ namespace RoleManagement.EFDAL
             dbcontext.SaveChanges();
             return user;
         }
-
+        public IEnumerable<T> AddRange(IEnumerable<T> user)
+        {
+            dbcontext.Set<T>().AddRange(user);
+            dbcontext.SaveChanges();
+            return user;
+        }
         public bool Update(T user)
         {
             dbcontext.Entry<T>(user).State = System.Data.Entity.EntityState.Modified;
