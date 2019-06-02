@@ -50,6 +50,7 @@
   <ItemGroup>
     <Compile Include="ActionDal.cs" />
     <Compile Include="BaseDal.cs" />
+    <Compile Include="MenuDal.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RoleDal.cs" />
     <Compile Include="UserInfoDal.cs" />

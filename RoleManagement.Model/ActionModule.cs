@@ -17,14 +17,15 @@ namespace RoleManagement.Model
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public ActionModule()
         {
-            this.Actions = new HashSet<Action>();
+            this.Action = new HashSet<Action>();
         }
     
         public int Id { get; set; }
         public int ParentId { get; set; }
         public string Name { get; set; }
+        public string Code { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Action> Actions { get; set; }
+        public virtual ICollection<Action> Action { get; set; }
     }
 }

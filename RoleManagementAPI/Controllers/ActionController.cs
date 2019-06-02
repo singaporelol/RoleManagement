@@ -23,7 +23,8 @@ namespace RoleManagementWebAPI.Controllers
         ActionService actionService = new ActionService();
         public IHttpActionResult Get()
         {
-            var k = actionService.GetEntities(u => u.Id > 0).Select(m => new { m.Id, m.ActionName, m.ParentId, m.Url, m.IsMenu });
+            //var k = actionService.GetEntities(u => u.Id > 0).Select(m => new { m.Id, m.ActionName, m.Url });
+            var k = actionService.GetEntities(u => u.Id > 0).Select(m => new { m.Id });
             if (k == null)
             {
                 return Ok(new
@@ -50,11 +51,9 @@ namespace RoleManagementWebAPI.Controllers
 
             Action action = actionService.Add(new Action()
             {
-                ParentId = Convert.ToInt32(data["ParentId"].Value),
-                ActionName = data["ActionName"].Value,
-                Url = data["Url"].Value,
-                IsMenu =(Boolean) data["IsMenu"].Value
-
+                //ActionName = data["ActionName"].Value,
+                //Url = data["Url"].Value,
+                
             });
             //把权限给系统管理员
             RoleService roleservice = new RoleService();

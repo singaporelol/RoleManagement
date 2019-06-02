@@ -2,8 +2,8 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 05/31/2019 18:47:31
--- Generated from EDMX file: C:\Users\xueqian\Documents\Work\RoleRelavant\RoleManagement\RoleManagement.Model\DataModel.edmx
+-- Date Created: 06/02/2019 22:45:30
+-- Generated from EDMX file: C:\Users\xueqian\source\RoleManagement\RoleManagement.Model\DataModel.edmx
 -- --------------------------------------------------
 
 SET QUOTED_IDENTIFIER OFF;
@@ -26,8 +26,17 @@ GO
 IF OBJECT_ID(N'[dbo].[FK_ActionRole_Role]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[ActionRole] DROP CONSTRAINT [FK_ActionRole_Role];
 GO
-IF OBJECT_ID(N'[dbo].[FK_ActionModuleAction]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[Action] DROP CONSTRAINT [FK_ActionModuleAction];
+IF OBJECT_ID(N'[dbo].[FK_ActionActionModule_Action]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[ActionActionModule] DROP CONSTRAINT [FK_ActionActionModule_Action];
+GO
+IF OBJECT_ID(N'[dbo].[FK_ActionActionModule_ActionModule]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[ActionActionModule] DROP CONSTRAINT [FK_ActionActionModule_ActionModule];
+GO
+IF OBJECT_ID(N'[dbo].[FK_ActionMenu_Action]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[ActionMenu] DROP CONSTRAINT [FK_ActionMenu_Action];
+GO
+IF OBJECT_ID(N'[dbo].[FK_ActionMenu_Menu]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[ActionMenu] DROP CONSTRAINT [FK_ActionMenu_Menu];
 GO
 
 -- --------------------------------------------------
@@ -43,14 +52,20 @@ GO
 IF OBJECT_ID(N'[dbo].[Action]', 'U') IS NOT NULL
     DROP TABLE [dbo].[Action];
 GO
-IF OBJECT_ID(N'[dbo].[ActionModules]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[ActionModules];
+IF OBJECT_ID(N'[dbo].[ActionModule]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[ActionModule];
 GO
 IF OBJECT_ID(N'[dbo].[Menu]', 'U') IS NOT NULL
     DROP TABLE [dbo].[Menu];
 GO
 IF OBJECT_ID(N'[dbo].[ActionRole]', 'U') IS NOT NULL
     DROP TABLE [dbo].[ActionRole];
+GO
+IF OBJECT_ID(N'[dbo].[ActionActionModule]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[ActionActionModule];
+GO
+IF OBJECT_ID(N'[dbo].[ActionMenu]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[ActionMenu];
 GO
 
 -- --------------------------------------------------
@@ -76,19 +91,16 @@ GO
 -- Creating table 'Action'
 CREATE TABLE [dbo].[Action] (
     [Id] int IDENTITY(1,1) NOT NULL,
-    [ParentId] int  NOT NULL,
-    [ActionName] nvarchar(max)  NOT NULL,
-    [Url] nvarchar(max)  NOT NULL,
-    [IsMenu] bit  NOT NULL,
-    [ActionModuleId] int  NOT NULL
+    [ActionType] nvarchar(max)  NOT NULL
 );
 GO
 
--- Creating table 'ActionModules'
-CREATE TABLE [dbo].[ActionModules] (
+-- Creating table 'ActionModule'
+CREATE TABLE [dbo].[ActionModule] (
     [Id] int IDENTITY(1,1) NOT NULL,
     [ParentId] int  NOT NULL,
-    [Name] nvarchar(max)  NOT NULL
+    [Name] nvarchar(max)  NOT NULL,
+    [Code] nvarchar(max)  NOT NULL
 );
 GO
 
@@ -96,7 +108,8 @@ GO
 CREATE TABLE [dbo].[Menu] (
     [Id] int IDENTITY(1,1) NOT NULL,
     [ParentId] int  NOT NULL,
-    [Title] nvarchar(max)  NOT NULL
+    [Title] nvarchar(max)  NOT NULL,
+    [Url] nvarchar(max)  NOT NULL
 );
 GO
 
@@ -104,6 +117,20 @@ GO
 CREATE TABLE [dbo].[ActionRole] (
     [Action_Id] int  NOT NULL,
     [Role_Id] int  NOT NULL
+);
+GO
+
+-- Creating table 'ActionActionModule'
+CREATE TABLE [dbo].[ActionActionModule] (
+    [Action_Id] int  NOT NULL,
+    [ActionModule_Id] int  NOT NULL
+);
+GO
+
+-- Creating table 'ActionMenu'
+CREATE TABLE [dbo].[ActionMenu] (
+    [Action_Id] int  NOT NULL,
+    [Menu_Id] int  NOT NULL
 );
 GO
 
@@ -129,9 +156,9 @@ ADD CONSTRAINT [PK_Action]
     PRIMARY KEY CLUSTERED ([Id] ASC);
 GO
 
--- Creating primary key on [Id] in table 'ActionModules'
-ALTER TABLE [dbo].[ActionModules]
-ADD CONSTRAINT [PK_ActionModules]
+-- Creating primary key on [Id] in table 'ActionModule'
+ALTER TABLE [dbo].[ActionModule]
+ADD CONSTRAINT [PK_ActionModule]
     PRIMARY KEY CLUSTERED ([Id] ASC);
 GO
 
@@ -145,6 +172,18 @@ GO
 ALTER TABLE [dbo].[ActionRole]
 ADD CONSTRAINT [PK_ActionRole]
     PRIMARY KEY CLUSTERED ([Action_Id], [Role_Id] ASC);
+GO
+
+-- Creating primary key on [Action_Id], [ActionModule_Id] in table 'ActionActionModule'
+ALTER TABLE [dbo].[ActionActionModule]
+ADD CONSTRAINT [PK_ActionActionModule]
+    PRIMARY KEY CLUSTERED ([Action_Id], [ActionModule_Id] ASC);
+GO
+
+-- Creating primary key on [Action_Id], [Menu_Id] in table 'ActionMenu'
+ALTER TABLE [dbo].[ActionMenu]
+ADD CONSTRAINT [PK_ActionMenu]
+    PRIMARY KEY CLUSTERED ([Action_Id], [Menu_Id] ASC);
 GO
 
 -- --------------------------------------------------
@@ -190,19 +229,52 @@ ON [dbo].[ActionRole]
     ([Role_Id]);
 GO
 
--- Creating foreign key on [ActionModuleId] in table 'Action'
-ALTER TABLE [dbo].[Action]
-ADD CONSTRAINT [FK_ActionModuleAction]
-    FOREIGN KEY ([ActionModuleId])
-    REFERENCES [dbo].[ActionModules]
+-- Creating foreign key on [Action_Id] in table 'ActionActionModule'
+ALTER TABLE [dbo].[ActionActionModule]
+ADD CONSTRAINT [FK_ActionActionModule_Action]
+    FOREIGN KEY ([Action_Id])
+    REFERENCES [dbo].[Action]
         ([Id])
     ON DELETE NO ACTION ON UPDATE NO ACTION;
 GO
 
--- Creating non-clustered index for FOREIGN KEY 'FK_ActionModuleAction'
-CREATE INDEX [IX_FK_ActionModuleAction]
-ON [dbo].[Action]
-    ([ActionModuleId]);
+-- Creating foreign key on [ActionModule_Id] in table 'ActionActionModule'
+ALTER TABLE [dbo].[ActionActionModule]
+ADD CONSTRAINT [FK_ActionActionModule_ActionModule]
+    FOREIGN KEY ([ActionModule_Id])
+    REFERENCES [dbo].[ActionModule]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_ActionActionModule_ActionModule'
+CREATE INDEX [IX_FK_ActionActionModule_ActionModule]
+ON [dbo].[ActionActionModule]
+    ([ActionModule_Id]);
+GO
+
+-- Creating foreign key on [Action_Id] in table 'ActionMenu'
+ALTER TABLE [dbo].[ActionMenu]
+ADD CONSTRAINT [FK_ActionMenu_Action]
+    FOREIGN KEY ([Action_Id])
+    REFERENCES [dbo].[Action]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating foreign key on [Menu_Id] in table 'ActionMenu'
+ALTER TABLE [dbo].[ActionMenu]
+ADD CONSTRAINT [FK_ActionMenu_Menu]
+    FOREIGN KEY ([Menu_Id])
+    REFERENCES [dbo].[Menu]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_ActionMenu_Menu'
+CREATE INDEX [IX_FK_ActionMenu_Menu]
+ON [dbo].[ActionMenu]
+    ([Menu_Id]);
 GO
 
 -- --------------------------------------------------

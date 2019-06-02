@@ -14,8 +14,18 @@ namespace RoleManagement.Model
     
     public partial class Menu
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Menu()
+        {
+            this.Action = new HashSet<Action>();
+        }
+    
         public int Id { get; set; }
         public int ParentId { get; set; }
         public string Title { get; set; }
+        public string Url { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Action> Action { get; set; }
     }
 }

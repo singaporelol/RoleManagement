@@ -44,6 +44,7 @@
   <ItemGroup>
     <Compile Include="ActionService.cs" />
     <Compile Include="BaseService.cs" />
+    <Compile Include="MenuService.cs" />
     <Compile Include="RoleService.cs" />
     <Compile Include="UserInfoService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -18,17 +18,18 @@ namespace RoleManagement.Model
         public Action()
         {
             this.Role = new HashSet<Role>();
+            this.ActionModule = new HashSet<ActionModule>();
+            this.Menu = new HashSet<Menu>();
         }
     
         public int Id { get; set; }
-        public int ParentId { get; set; }
-        public string ActionName { get; set; }
-        public string Url { get; set; }
-        public bool IsMenu { get; set; }
-        public int ActionModuleId { get; set; }
+        public string ActionType { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Role> Role { get; set; }
-        public virtual ActionModule ActionModule { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ActionModule> ActionModule { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Menu> Menu { get; set; }
     }
 }

@@ -64,18 +64,16 @@ namespace RoleManagement.Service
         public List<Action> LoadUserMenu(UserInfo userinfo, int Id)
         {
             List<Action> rootList = new List<Action>();
-            IEnumerable<Action> action = userinfo.Role.Action.Where(u => u.IsMenu == true && u.ParentId==Id);
+            IEnumerable<Action> action = userinfo.Role.Action;
             foreach (var item in action)
             {
-                rootList.Add(new Action
-                {
-                    ActionName = item.ActionName,
-                    Id = item.Id,
-                    IsMenu = item.IsMenu,
-                    Url = item.Url,
-                    ParentId = item.ParentId,
-                    ChildMenu = LoadUserMenu(userinfo,item.Id)
-                });
+                //rootList.Add(new Action
+                //{
+                //    ActionName = item.ActionName,
+                //    Id = item.Id,
+                //    Url = item.Url,
+                //    ChildMenu = LoadUserMenu(userinfo,item.Id)
+                //});
 
             }
             return rootList;
