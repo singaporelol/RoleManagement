@@ -12,7 +12,12 @@ namespace RoleManagement.Utils
         {
             //InitializeRole();
             //InitializeUserInfo();
-            InitializeMenu();
+            //InitializeMenu();
+            InitializeActionModule();
+        }
+        public void InitializeActionModule()
+        {
+
         }
         public void InitializeMenu()
         {
