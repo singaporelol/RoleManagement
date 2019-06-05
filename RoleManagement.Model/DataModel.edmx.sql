@@ -2,8 +2,8 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 06/04/2019 16:14:42
--- Generated from EDMX file: C:\Users\xueqian\Documents\Work\RoleRelavant\RoleManagement\RoleManagement.Model\DataModel.edmx
+-- Date Created: 06/04/2019 19:29:09
+-- Generated from EDMX file: C:\Users\xueqian\source\RoleManagement\RoleManagement.Model\DataModel.edmx
 -- --------------------------------------------------
 
 SET QUOTED_IDENTIFIER OFF;
@@ -100,7 +100,7 @@ CREATE TABLE [dbo].[ActionModule] (
     [Id] int IDENTITY(1,1) NOT NULL,
     [ParentId] int  NOT NULL,
     [Name] nvarchar(max)  NOT NULL,
-    [Code] nvarchar(max)  NOT NULL
+    [Url] nvarchar(max)  NOT NULL
 );
 GO
 

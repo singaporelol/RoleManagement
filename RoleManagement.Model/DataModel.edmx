@@ -73,7 +73,7 @@
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="ParentId" Type="int" Nullable="false" />
     <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="Code" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Url" Type="nvarchar(max)" Nullable="false" />
   </EntityType>
   <EntityType Name="Menu">
     <Key>
@@ -272,7 +272,7 @@
           <Property Name="ParentId" Type="Int32" Nullable="false" />
           <Property Name="Name" Type="String" Nullable="false" />
           <NavigationProperty Name="Action" Relationship="DataModel.ActionActionModule" FromRole="ActionModule" ToRole="Action" />
-          <Property Name="Code" Type="String" Nullable="false" />
+          <Property Name="Url" Type="String" Nullable="false" />
         </EntityType>
         <EntityType Name="Menu">
           <Key>
@@ -330,7 +330,7 @@
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="ParentId" ColumnName="ParentId" />
           <ScalarProperty Name="Name" ColumnName="Name" />
-          <ScalarProperty Name="Code" ColumnName="Code" />
+          <ScalarProperty Name="Url" ColumnName="Url" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

@@ -25,7 +25,8 @@ namespace ConsoleApp1
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<Menu> Menu { get; set; }
-        public virtual DbSet<Role> Role { get; set; }
+        public virtual DbSet<classes> classes { get; set; }
+        public virtual DbSet<students> students { get; set; }
+        public virtual DbSet<teachers> teachers { get; set; }
     }
 }

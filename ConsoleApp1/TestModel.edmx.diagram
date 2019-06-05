@@ -5,8 +5,11 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="2e261fb680d94899ab71930029f3b047" Name="Diagram1">
-        <EntityTypeShape EntityType="BackEndRoleManagementModel.Menu" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="BackEndRoleManagementModel.Role" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="BackEndRoleManagementModel.classes" Width="1.5" PointX="0.75" PointY="1.125" />
+        <EntityTypeShape EntityType="BackEndRoleManagementModel.students" Width="1.5" PointX="3" PointY="0.875" />
+        <AssociationConnector Association="BackEndRoleManagementModel.FK_classstudent" />
+        <EntityTypeShape EntityType="BackEndRoleManagementModel.teachers" Width="1.5" PointX="0.75" PointY="3.5" />
+        <AssociationConnector Association="BackEndRoleManagementModel.teachersclasses" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

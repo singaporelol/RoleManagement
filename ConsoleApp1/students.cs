@@ -12,9 +12,13 @@ namespace ConsoleApp1
     using System;
     using System.Collections.Generic;
     
-    public partial class Role
+    public partial class students
     {
         public int Id { get; set; }
-        public string RoleName { get; set; }
+        public string name { get; set; }
+        public Nullable<int> age { get; set; }
+        public int classId { get; set; }
+    
+        public virtual classes classes { get; set; }
     }
 }

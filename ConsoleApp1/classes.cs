@@ -7,25 +7,26 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace RoleManagement.Model
+namespace ConsoleApp1
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class ActionModule
+    public partial class classes
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public ActionModule()
+        public classes()
         {
-            this.Action = new HashSet<Action>();
+            this.students = new HashSet<students>();
+            this.teachers = new HashSet<teachers>();
         }
     
         public int Id { get; set; }
-        public int ParentId { get; set; }
-        public string Name { get; set; }
-        public string Url { get; set; }
+        public string classname { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Action> Action { get; set; }
+        public virtual ICollection<students> students { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<teachers> teachers { get; set; }
     }
 }
