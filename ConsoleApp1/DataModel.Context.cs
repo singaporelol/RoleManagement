@@ -13,10 +13,10 @@ namespace ConsoleApp1
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class BackEndRoleManagementEntities : DbContext
+    public partial class DataModelContainer : DbContext
     {
-        public BackEndRoleManagementEntities()
-            : base("name=BackEndRoleManagementEntities")
+        public DataModelContainer()
+            : base("name=DataModelContainer")
         {
         }
     
@@ -26,7 +26,6 @@ namespace ConsoleApp1
         }
     
         public virtual DbSet<classes> classes { get; set; }
-        public virtual DbSet<students> students { get; set; }
-        public virtual DbSet<teachers> teachers { get; set; }
+        public virtual DbSet<teachers> teacher { get; set; }
     }
 }

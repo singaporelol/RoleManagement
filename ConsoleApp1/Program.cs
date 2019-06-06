@@ -144,12 +144,35 @@ namespace ConsoleApp1
 
             //List<MenuTreeViewModel> list= GetMenuTree(listMenu, -1); 
             #endregion
-            //多对多关联表测试：
-
-
-
-            //InitializeDatabase ID = new InitializeDatabase();
             
+            #region 多对多关联表测试
+            //DataModelContainer dbContainer = new DataModelContainer();
+            //dbContainer.classes.Add(new classes
+            //{
+            //    Name = "4N1"
+            //});
+            //dbContainer.classes.Add(new classes
+            //{
+            //    Name = "5N1"
+            //});
+            //dbContainer.teacher.Add(new teachers
+            //{
+            //    Name = "zhangsan"
+            //});
+            //teachers t=dbContainer.teacher.Add(new teachers
+            //{
+            //    Name = "lisi"
+            //});
+            //List<teachers> t = new List<teachers>();
+            //t = dbContainer.teacher.ToList();
+            //dbContainer.classes.Where(u => u.Name == "5N1").FirstOrDefault().teachers.Add(t);
+            //dbContainer.teacher.Where(u => u.Name == "zhangsan").FirstOrDefault().classes.Add(dbContainer.classes.Where(u => u.Name == "4N1").FirstOrDefault());
+            //dbContainer.SaveChanges(); 
+            #endregion
+
+
+            InitializeDatabase ID = new InitializeDatabase();
+
 
             Console.WriteLine("asdf");
             Console.ReadLine();
