@@ -12,10 +12,18 @@ namespace ConsoleApp1
     using System;
     using System.Collections.Generic;
     
-    public partial class Menu
+    public partial class teachers
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public teachers()
+        {
+            this.classes = new HashSet<classes>();
+        }
+    
         public int Id { get; set; }
-        public int ParentId { get; set; }
-        public string Title { get; set; }
+        public string name { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<classes> classes { get; set; }
     }
 }

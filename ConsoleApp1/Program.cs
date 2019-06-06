@@ -144,15 +144,12 @@ namespace ConsoleApp1
 
             //List<MenuTreeViewModel> list= GetMenuTree(listMenu, -1); 
             #endregion
+            //多对多关联表测试：
 
-            InitializeDatabase ID = new InitializeDatabase();
-            //BackEndRoleManagementEntities db = new BackEndRoleManagementEntities();
-            //db.Menu.Add(new Menu
-            //{
-            //    ParentId = 0,
-            //    Title = "zhangsan"
-            //});
-            //db.SaveChanges();
+
+
+            //InitializeDatabase ID = new InitializeDatabase();
+            
 
             Console.WriteLine("asdf");
             Console.ReadLine();

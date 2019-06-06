@@ -10,14 +10,103 @@ namespace RoleManagement.Utils
     {
         public InitializeDatabase()
         {
+            //InitializeMenu();
+            //InitializeActionModule();
+            //InitializeAction();
             //InitializeRole();
             //InitializeUserInfo();
-            //InitializeMenu();
-            InitializeActionModule();
+            int c = 10;
+        }
+        public void InitializeAction()
+        {
+            ActionService actionService = new ActionService();
+            actionService.Add(new Model.Action
+            {
+                ActionType = "menu"
+            });
         }
         public void InitializeActionModule()
         {
+            ActionModuleService actionModuleService = new ActionModuleService();
+            List<ActionModule> actionModuleLIst = new List<ActionModule>();
+            actionModuleService.Add(new ActionModule
+            {
 
+                ParentId = 0,
+                Name = "系统",
+                Url = "/system",
+            });
+            int pId= actionModuleService.GetEntities(u => u.Name == "系统").FirstOrDefault().Id;
+            actionModuleService.Add(new ActionModule
+            {
+                ParentId = pId,
+                Name = "系统设置",
+                Url = "/systemsetting"
+            });
+            actionModuleService.Add(new ActionModule
+            {
+                ParentId = pId,
+                Name = "权限管理",
+                Url = "/action"
+            });
+            actionModuleService.Add(new ActionModule
+            {
+                ParentId = pId,
+                Name = "用户管理",
+                Url = "/user"
+            });
+            int systemeId=actionModuleService.GetEntities(u => u.Name == "系统设置").FirstOrDefault().Id;
+            actionModuleLIst.Add(new ActionModule
+            {
+                ParentId = systemeId,
+                Name = "菜单管理",
+                Url = "/menu"
+            });
+            int cId = actionModuleService.GetEntities(u => u.Name == "权限管理").FirstOrDefault().Id;
+            actionModuleLIst.Add(new ActionModule
+            {
+
+                ParentId = cId,
+                Name = "功能管理",
+                Url = "/function",
+            });
+            actionModuleLIst.Add(new ActionModule
+            {
+
+                ParentId = cId,
+                Name = "角色管理",
+                Url = "/role",
+            });
+            actionModuleLIst.Add(new ActionModule
+            {
+
+                ParentId = cId,
+                Name = "角色权限管理",
+                Url = "/roleauth",
+            });
+            actionModuleLIst.Add(new ActionModule
+            {
+
+                ParentId = cId,
+                Name = "角色用户管理",
+                Url = "/roleuser",
+            });
+            actionModuleLIst.Add(new ActionModule
+            {
+
+                ParentId = cId,
+                Name = "用户角色管理",
+                Url = "/userrole",
+            });
+            int userId=actionModuleService.GetEntities(u => u.Name == "用户管理").FirstOrDefault().Id;
+            actionModuleLIst.Add(new ActionModule
+            {
+
+                ParentId = userId,
+                Name = "用户管理",
+                Url = "/usermanage",
+            });
+            actionModuleService.AddRange(actionModuleLIst);
         }
         public void InitializeMenu()
         {
@@ -89,8 +178,20 @@ namespace RoleManagement.Utils
                 Url="/userrole"
             });
             menuService.AddRange(childMenuList);
-            
         }
+        public void InitializeRole()
+        {
+            RoleService roleService = new RoleService();
+            ActionService actionService = new ActionService();
+            List<Role> list = new List<Role>();
+            list.Add(new Role
+            {
+                RoleName = "系统管理员",
+            });
+            roleService.AddRange(list);
+
+        }
+
         public void InitializeUserInfo()
         {
             UserInfoService userInfoService = new UserInfoService();
@@ -102,20 +203,6 @@ namespace RoleManagement.Utils
                 Password = "123",
                 RoleId = role.Id
             });
-        }
-        public void InitializeRole()
-        {
-            RoleService roleService = new RoleService();
-            List<Role> list = new List<Role>();
-            list.Add(new Role
-            {
-                RoleName = "系统管理员"
-            });
-            list.Add(new Role
-            {
-                RoleName = "管理员"
-            });
-            roleService.AddRange(list);
         }
     }
 }

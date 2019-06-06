@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace RoleManagement.EFDAL
 {
-   public class ActionModuleDal: BaseDal<ActionModule>
+   public class ActionModuleDal:BaseDal<ActionModule>
     {
 
     }
