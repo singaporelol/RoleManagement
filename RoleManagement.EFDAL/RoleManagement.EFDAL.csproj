@@ -49,6 +49,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ActionDal.cs" />
+    <Compile Include="ActionModuleDal.cs" />
     <Compile Include="BaseDal.cs" />
     <Compile Include="MenuDal.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
