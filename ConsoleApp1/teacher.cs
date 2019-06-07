@@ -12,10 +12,10 @@ namespace ConsoleApp1
     using System;
     using System.Collections.Generic;
     
-    public partial class teachers
+    public partial class teacher
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public teachers()
+        public teacher()
         {
             this.classes = new HashSet<classes>();
         }

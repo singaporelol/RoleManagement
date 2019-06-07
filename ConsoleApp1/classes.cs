@@ -17,13 +17,13 @@ namespace ConsoleApp1
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public classes()
         {
-            this.teachers = new HashSet<teachers>();
+            this.teacher = new HashSet<teacher>();
         }
     
         public int Id { get; set; }
         public string Name { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<teachers> teachers { get; set; }
+        public virtual ICollection<teacher> teacher { get; set; }
     }
 }

@@ -13,10 +13,10 @@ namespace ConsoleApp1
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class DataModelContainer : DbContext
+    public partial class TestDataModelContainer : DbContext
     {
-        public DataModelContainer()
-            : base("name=DataModelContainer")
+        public TestDataModelContainer()
+            : base("name=TestDataModelContainer")
         {
         }
     
@@ -26,6 +26,6 @@ namespace ConsoleApp1
         }
     
         public virtual DbSet<classes> classes { get; set; }
-        public virtual DbSet<teachers> teacher { get; set; }
+        public virtual DbSet<teacher> teacher { get; set; }
     }
 }

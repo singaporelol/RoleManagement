@@ -10,20 +10,55 @@ namespace RoleManagement.Utils
     {
         public InitializeDatabase()
         {
-            //InitializeMenu();
-            //InitializeActionModule();
-            //InitializeAction();
-            //InitializeRole();
-            //InitializeUserInfo();
-            int c = 10;
+            InitializeMenu();
+            InitializeActionModule();
+            InitializeAction();
+            InitializeRole();
+            InitializeUserInfo();
         }
+        public void InitializeUserInfo()
+        {
+            UserInfoService userInfoService = new UserInfoService();
+            RoleService roleService = new RoleService();
+            Role role = roleService.GetEntities(u => u.RoleName == "系统管理员").FirstOrDefault();
+            UserInfo userinfo = userInfoService.Add(new UserInfo
+            {
+                UserName = "admin",
+                Password = "123",
+                RoleId = role.Id
+            });
+        }
+        public void InitializeRole()
+        {
+            RoleService roleService = new RoleService();
+            ActionService actionService = new ActionService();
+            
+            Role role=roleService.Add(new Role
+            {
+                RoleName = "系统管理员",
+            });
+            //关联角色和权限类型（Menu和模块）
+            actionService.GetEntities(u => u.Id > 0).ToList().ForEach(m => m.Role.Add(role));
+
+        }
+
         public void InitializeAction()
         {
             ActionService actionService = new ActionService();
-            actionService.Add(new Model.Action
+            Model.Action action=actionService.Add(new Model.Action
             {
                 ActionType = "menu"
             });
+            //关联Menu菜单和权限
+            MenuService menuService = new MenuService();
+            menuService.GetEntities(u => u.Id > 0).ToList().ForEach(m => m.Action.Add(action));
+            Model.Action module = actionService.Add(new Model.Action
+            {
+                ActionType = "module"
+            });
+            //关联ActionModule表和Action表
+            ActionModuleService actionModuleService = new ActionModuleService();
+            actionModuleService.GetEntities(u => u.Id > 0).ToList().ForEach(m => m.Action.Add(module));
         }
         public void InitializeActionModule()
         {
@@ -36,7 +71,7 @@ namespace RoleManagement.Utils
                 Name = "系统",
                 Url = "/system",
             });
-            int pId= actionModuleService.GetEntities(u => u.Name == "系统").FirstOrDefault().Id;
+            int pId = actionModuleService.GetEntities(u => u.Name == "系统").FirstOrDefault().Id;
             actionModuleService.Add(new ActionModule
             {
                 ParentId = pId,
@@ -55,7 +90,7 @@ namespace RoleManagement.Utils
                 Name = "用户管理",
                 Url = "/user"
             });
-            int systemeId=actionModuleService.GetEntities(u => u.Name == "系统设置").FirstOrDefault().Id;
+            int systemeId = actionModuleService.GetEntities(u => u.Name == "系统设置").FirstOrDefault().Id;
             actionModuleLIst.Add(new ActionModule
             {
                 ParentId = systemeId,
@@ -98,7 +133,7 @@ namespace RoleManagement.Utils
                 Name = "用户角色管理",
                 Url = "/userrole",
             });
-            int userId=actionModuleService.GetEntities(u => u.Name == "用户管理").FirstOrDefault().Id;
+            int userId = actionModuleService.GetEntities(u => u.Name == "用户管理").FirstOrDefault().Id;
             actionModuleLIst.Add(new ActionModule
             {
 
@@ -179,30 +214,6 @@ namespace RoleManagement.Utils
             });
             menuService.AddRange(childMenuList);
         }
-        public void InitializeRole()
-        {
-            RoleService roleService = new RoleService();
-            ActionService actionService = new ActionService();
-            List<Role> list = new List<Role>();
-            list.Add(new Role
-            {
-                RoleName = "系统管理员",
-            });
-            roleService.AddRange(list);
-
-        }
-
-        public void InitializeUserInfo()
-        {
-            UserInfoService userInfoService = new UserInfoService();
-            RoleService roleService = new RoleService();
-            Role role = roleService.GetEntities(u => u.RoleName == "系统管理员").FirstOrDefault();
-            UserInfo userinfo = userInfoService.Add(new UserInfo
-            {
-                UserName = "admin",
-                Password = "123",
-                RoleId = role.Id
-            });
-        }
+        
     }
 }
