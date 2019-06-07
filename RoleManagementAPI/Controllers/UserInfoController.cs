@@ -31,18 +31,20 @@ namespace RoleManagementWebAPI.Controllers
                 });
             }
             //加载登录用户对应的权限菜单
-            List<Menu> menu = userinfo.Role.Action.Where(u=>u.ActionType=="menu").FirstOrDefault().Menu.OrderBy(v=>v.ParentId).ToList();
-            var userMenu=userInfoService.GetUserMenu(menu);
+            var userMenu=userInfoService.GetUserMenu(userinfo);
+            //加载登录用户对应的权限模块
+            var actionModule = userInfoService.GetUserActionModule(userinfo);
             var dataObj = new
             {
                 code = 1,
                 userMenu = JsonConvert.SerializeObject(userMenu,Formatting.None, new JsonSerializerSettings {
                     ReferenceLoopHandling = ReferenceLoopHandling.Ignore,
                     PreserveReferencesHandling =PreserveReferencesHandling.None }),
+
                 userinfo = new
                 {
                     userinfo.UserName,
-                    userinfo.Password
+                    userinfo.Password,
                 }
 
             };
@@ -68,7 +70,6 @@ namespace RoleManagementWebAPI.Controllers
                     Id=k.Id,
                     UserName=k.UserName,
                     Password=k.Password,
-                    RoleName=k.Role.RoleName,
                 }
             };
            
@@ -77,7 +78,7 @@ namespace RoleManagementWebAPI.Controllers
         public IHttpActionResult Get()
         {
 
-            var k = userInfoService.GetEntities(u=>u.Id>0).Select(m=> new {m.Role.RoleName,m.UserName,m.Id});
+            var k = userInfoService.GetEntities(u=>u.Id>0).Select(m=> new {m.UserName,m.Id});
             if (k == null)
             {
                 return Ok(new

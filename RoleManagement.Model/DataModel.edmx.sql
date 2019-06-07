@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 06/06/2019 22:12:55
+-- Date Created: 06/07/2019 20:55:34
 -- Generated from EDMX file: C:\Users\xueqian\source\RoleManagement\RoleManagement.Model\DataModel.edmx
 -- --------------------------------------------------
 
@@ -17,15 +17,6 @@ GO
 -- Dropping existing FOREIGN KEY constraints
 -- --------------------------------------------------
 
-IF OBJECT_ID(N'[dbo].[FK_RoleUser]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[UserInfo] DROP CONSTRAINT [FK_RoleUser];
-GO
-IF OBJECT_ID(N'[dbo].[FK_ActionRole_Action]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[ActionRole] DROP CONSTRAINT [FK_ActionRole_Action];
-GO
-IF OBJECT_ID(N'[dbo].[FK_ActionRole_Role]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[ActionRole] DROP CONSTRAINT [FK_ActionRole_Role];
-GO
 IF OBJECT_ID(N'[dbo].[FK_ActionActionModule_Action]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[ActionActionModule] DROP CONSTRAINT [FK_ActionActionModule_Action];
 GO
@@ -38,34 +29,43 @@ GO
 IF OBJECT_ID(N'[dbo].[FK_ActionMenu_Menu]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[ActionMenu] DROP CONSTRAINT [FK_ActionMenu_Menu];
 GO
+IF OBJECT_ID(N'[dbo].[FK_ActionRole_Action]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[ActionRole] DROP CONSTRAINT [FK_ActionRole_Action];
+GO
+IF OBJECT_ID(N'[dbo].[FK_ActionRole_Role]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[ActionRole] DROP CONSTRAINT [FK_ActionRole_Role];
+GO
+IF OBJECT_ID(N'[dbo].[FK_RoleUser]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[UserInfo] DROP CONSTRAINT [FK_RoleUser];
+GO
 
 -- --------------------------------------------------
 -- Dropping existing tables
 -- --------------------------------------------------
 
-IF OBJECT_ID(N'[dbo].[Role]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[Role];
-GO
-IF OBJECT_ID(N'[dbo].[UserInfo]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[UserInfo];
-GO
 IF OBJECT_ID(N'[dbo].[Action]', 'U') IS NOT NULL
     DROP TABLE [dbo].[Action];
-GO
-IF OBJECT_ID(N'[dbo].[ActionModule]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[ActionModule];
-GO
-IF OBJECT_ID(N'[dbo].[Menu]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[Menu];
-GO
-IF OBJECT_ID(N'[dbo].[ActionRole]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[ActionRole];
 GO
 IF OBJECT_ID(N'[dbo].[ActionActionModule]', 'U') IS NOT NULL
     DROP TABLE [dbo].[ActionActionModule];
 GO
 IF OBJECT_ID(N'[dbo].[ActionMenu]', 'U') IS NOT NULL
     DROP TABLE [dbo].[ActionMenu];
+GO
+IF OBJECT_ID(N'[dbo].[ActionModule]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[ActionModule];
+GO
+IF OBJECT_ID(N'[dbo].[ActionRole]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[ActionRole];
+GO
+IF OBJECT_ID(N'[dbo].[Menu]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[Menu];
+GO
+IF OBJECT_ID(N'[dbo].[Role]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[Role];
+GO
+IF OBJECT_ID(N'[dbo].[UserInfo]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[UserInfo];
 GO
 
 -- --------------------------------------------------
@@ -134,6 +134,13 @@ CREATE TABLE [dbo].[ActionMenu] (
 );
 GO
 
+-- Creating table 'UserInfoRole'
+CREATE TABLE [dbo].[UserInfoRole] (
+    [UserInfo_Id] int  NOT NULL,
+    [Role_Id] int  NOT NULL
+);
+GO
+
 -- --------------------------------------------------
 -- Creating all PRIMARY KEY constraints
 -- --------------------------------------------------
@@ -186,24 +193,15 @@ ADD CONSTRAINT [PK_ActionMenu]
     PRIMARY KEY CLUSTERED ([Action_Id], [Menu_Id] ASC);
 GO
 
+-- Creating primary key on [UserInfo_Id], [Role_Id] in table 'UserInfoRole'
+ALTER TABLE [dbo].[UserInfoRole]
+ADD CONSTRAINT [PK_UserInfoRole]
+    PRIMARY KEY CLUSTERED ([UserInfo_Id], [Role_Id] ASC);
+GO
+
 -- --------------------------------------------------
 -- Creating all FOREIGN KEY constraints
 -- --------------------------------------------------
-
--- Creating foreign key on [RoleId] in table 'UserInfo'
-ALTER TABLE [dbo].[UserInfo]
-ADD CONSTRAINT [FK_RoleUser]
-    FOREIGN KEY ([RoleId])
-    REFERENCES [dbo].[Role]
-        ([Id])
-    ON DELETE NO ACTION ON UPDATE NO ACTION;
-GO
-
--- Creating non-clustered index for FOREIGN KEY 'FK_RoleUser'
-CREATE INDEX [IX_FK_RoleUser]
-ON [dbo].[UserInfo]
-    ([RoleId]);
-GO
 
 -- Creating foreign key on [Action_Id] in table 'ActionRole'
 ALTER TABLE [dbo].[ActionRole]
@@ -275,6 +273,30 @@ GO
 CREATE INDEX [IX_FK_ActionMenu_Menu]
 ON [dbo].[ActionMenu]
     ([Menu_Id]);
+GO
+
+-- Creating foreign key on [UserInfo_Id] in table 'UserInfoRole'
+ALTER TABLE [dbo].[UserInfoRole]
+ADD CONSTRAINT [FK_UserInfoRole_UserInfo]
+    FOREIGN KEY ([UserInfo_Id])
+    REFERENCES [dbo].[UserInfo]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating foreign key on [Role_Id] in table 'UserInfoRole'
+ALTER TABLE [dbo].[UserInfoRole]
+ADD CONSTRAINT [FK_UserInfoRole_Role]
+    FOREIGN KEY ([Role_Id])
+    REFERENCES [dbo].[Role]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_UserInfoRole_Role'
+CREATE INDEX [IX_FK_UserInfoRole_Role]
+ON [dbo].[UserInfoRole]
+    ([Role_Id]);
 GO
 
 -- --------------------------------------------------

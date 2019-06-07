@@ -16,10 +16,27 @@ namespace RoleManagement.Service
         {
             GetCurrentDal = new UserInfoDal();
         }
-        public List<Menu> GetUserMenu(List<Menu> menu)
+        public List<ActionModule> GetUserActionModule(UserInfo userinfo)
         {
-            //循环遍历加载菜单
-            List<Menu> rootList = LoadUserMenu(menu, 0);
+            List<ActionModule> listActionModule = new List<ActionModule>();
+            //userinfo.Role.Action.Where(u => u.ActionType == "module").FirstOrDefault();
+            return listActionModule;
+        }
+        public List<Menu> GetUserMenu(UserInfo userinfo)
+        {
+            //拿到用户所对应的角色
+            var allRole = userinfo.Role;
+            //拿到角色所对应的权限
+            var allAction = from r in allRole
+                            select r.Action;
+            List<Menu> AllMenu = new List<Menu>();
+            //foreach (var item in allAction)
+            //{
+
+            //}
+            //    .Where(u => u.ActionType == "menu").FirstOrDefault().Menu.OrderBy(v => v.ParentId).ToList();
+            //List<Menu> rootList = LoadUserMenu(menu, 0);
+            List<Menu> rootList = new List<Menu>();
             return rootList;
             
             #region 取消2级菜单
@@ -66,18 +83,18 @@ namespace RoleManagement.Service
         /// <param name="menu">List集合</param>
         /// <param name="Id">父级ID</param>
         /// <returns></returns>
-        public List<Menu> LoadUserMenu(List<Menu> menu, int Id)
+        public List<Menu> LoadUserMenu(List<Menu> menu, int pId)
         {
             List<Menu> rootList = new List<Menu>();
-            List<Menu> rootMenu = menu.Where(u => u.ParentId == Id).ToList();
-            foreach (var item in menu)
+            List<Menu> rootMenu = menu.Where(u => u.ParentId == pId).ToList();
+            foreach (var item in rootMenu)
             {
                 rootList.Add(new Menu
                 {
                     Title = item.Title,
                     Id = item.Id,
                     Url = item.Url,
-                    ChildMenu = LoadUserMenu(rootMenu, item.Id)
+                    ChildMenu = LoadUserMenu(menu, item.Id)
                 });
 
             }

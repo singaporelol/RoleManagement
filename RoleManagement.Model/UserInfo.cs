@@ -14,11 +14,18 @@ namespace RoleManagement.Model
     
     public partial class UserInfo
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public UserInfo()
+        {
+            this.Role = new HashSet<Role>();
+        }
+    
         public int Id { get; set; }
         public int RoleId { get; set; }
         public string UserName { get; set; }
         public string Password { get; set; }
     
-        public virtual Role Role { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Role> Role { get; set; }
     }
 }
