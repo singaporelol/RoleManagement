@@ -31,7 +31,8 @@ namespace RoleManagementWebAPI.Controllers
                 });
             }
             //加载登录用户对应的权限菜单
-            List<Action> userMenu = userInfoService.GetUserMenu(userinfo.UserName);
+            List<Menu> menu = userinfo.Role.Action.Where(u=>u.ActionType=="menu").FirstOrDefault().Menu.OrderBy(v=>v.ParentId).ToList();
+            var userMenu=userInfoService.GetUserMenu(menu);
             var dataObj = new
             {
                 code = 1,
@@ -51,9 +52,6 @@ namespace RoleManagementWebAPI.Controllers
 
         public IHttpActionResult Get(int id)
         {
-            
-            
-
             var k= userInfoService.GetEntityById(id);
             if (k == null)
             {

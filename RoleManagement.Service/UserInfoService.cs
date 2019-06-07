@@ -6,7 +6,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
-using Action = RoleManagement.Model.Action;
+
 
 namespace RoleManagement.Service
 {
@@ -16,11 +16,10 @@ namespace RoleManagement.Service
         {
             GetCurrentDal = new UserInfoDal();
         }
-        public List<Action> GetUserMenu(string username)
+        public List<Menu> GetUserMenu(List<Menu> menu)
         {
-            UserInfo userinfo = GetCurrentDal.GetEntities(u => u.UserName == username).FirstOrDefault();
             //循环遍历加载菜单
-            List<Action> rootList = LoadUserMenu(userinfo,0);
+            List<Menu> rootList = LoadUserMenu(menu, 0);
             return rootList;
             
             #region 取消2级菜单
@@ -60,20 +59,26 @@ namespace RoleManagement.Service
             #endregion
 
         }
-        //递归循环加载菜单
-        public List<Action> LoadUserMenu(UserInfo userinfo, int Id)
+        
+        /// <summary>
+        /// 递归加载菜单
+        /// </summary>
+        /// <param name="menu">List集合</param>
+        /// <param name="Id">父级ID</param>
+        /// <returns></returns>
+        public List<Menu> LoadUserMenu(List<Menu> menu, int Id)
         {
-            List<Action> rootList = new List<Action>();
-            IEnumerable<Action> action = userinfo.Role.Action;
-            foreach (var item in action)
+            List<Menu> rootList = new List<Menu>();
+            List<Menu> rootMenu = menu.Where(u => u.ParentId == Id).ToList();
+            foreach (var item in menu)
             {
-                //rootList.Add(new Action
-                //{
-                //    ActionName = item.ActionName,
-                //    Id = item.Id,
-                //    Url = item.Url,
-                //    ChildMenu = LoadUserMenu(userinfo,item.Id)
-                //});
+                rootList.Add(new Menu
+                {
+                    Title = item.Title,
+                    Id = item.Id,
+                    Url = item.Url,
+                    ChildMenu = LoadUserMenu(rootMenu, item.Id)
+                });
 
             }
             return rootList;

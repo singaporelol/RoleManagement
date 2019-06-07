@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace RoleManagement.Model
 {
-    public partial class Action
+    public partial class Menu
     {
-         public List<Action> ChildMenu { get; set; }
+         public List<Menu> ChildMenu { get; set; }
     }
 }
