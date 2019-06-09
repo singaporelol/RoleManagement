@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 06/07/2019 20:55:34
+-- Date Created: 06/09/2019 22:16:37
 -- Generated from EDMX file: C:\Users\xueqian\source\RoleManagement\RoleManagement.Model\DataModel.edmx
 -- --------------------------------------------------
 
@@ -17,6 +17,12 @@ GO
 -- Dropping existing FOREIGN KEY constraints
 -- --------------------------------------------------
 
+IF OBJECT_ID(N'[dbo].[FK_ActionRole_Action]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[ActionRole] DROP CONSTRAINT [FK_ActionRole_Action];
+GO
+IF OBJECT_ID(N'[dbo].[FK_ActionRole_Role]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[ActionRole] DROP CONSTRAINT [FK_ActionRole_Role];
+GO
 IF OBJECT_ID(N'[dbo].[FK_ActionActionModule_Action]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[ActionActionModule] DROP CONSTRAINT [FK_ActionActionModule_Action];
 GO
@@ -29,22 +35,34 @@ GO
 IF OBJECT_ID(N'[dbo].[FK_ActionMenu_Menu]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[ActionMenu] DROP CONSTRAINT [FK_ActionMenu_Menu];
 GO
-IF OBJECT_ID(N'[dbo].[FK_ActionRole_Action]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[ActionRole] DROP CONSTRAINT [FK_ActionRole_Action];
+IF OBJECT_ID(N'[dbo].[FK_UserInfoRole_UserInfo]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[UserInfoRole] DROP CONSTRAINT [FK_UserInfoRole_UserInfo];
 GO
-IF OBJECT_ID(N'[dbo].[FK_ActionRole_Role]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[ActionRole] DROP CONSTRAINT [FK_ActionRole_Role];
-GO
-IF OBJECT_ID(N'[dbo].[FK_RoleUser]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[UserInfo] DROP CONSTRAINT [FK_RoleUser];
+IF OBJECT_ID(N'[dbo].[FK_UserInfoRole_Role]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[UserInfoRole] DROP CONSTRAINT [FK_UserInfoRole_Role];
 GO
 
 -- --------------------------------------------------
 -- Dropping existing tables
 -- --------------------------------------------------
 
+IF OBJECT_ID(N'[dbo].[Role]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[Role];
+GO
+IF OBJECT_ID(N'[dbo].[UserInfo]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[UserInfo];
+GO
 IF OBJECT_ID(N'[dbo].[Action]', 'U') IS NOT NULL
     DROP TABLE [dbo].[Action];
+GO
+IF OBJECT_ID(N'[dbo].[ActionModule]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[ActionModule];
+GO
+IF OBJECT_ID(N'[dbo].[Menu]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[Menu];
+GO
+IF OBJECT_ID(N'[dbo].[ActionRole]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[ActionRole];
 GO
 IF OBJECT_ID(N'[dbo].[ActionActionModule]', 'U') IS NOT NULL
     DROP TABLE [dbo].[ActionActionModule];
@@ -52,20 +70,8 @@ GO
 IF OBJECT_ID(N'[dbo].[ActionMenu]', 'U') IS NOT NULL
     DROP TABLE [dbo].[ActionMenu];
 GO
-IF OBJECT_ID(N'[dbo].[ActionModule]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[ActionModule];
-GO
-IF OBJECT_ID(N'[dbo].[ActionRole]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[ActionRole];
-GO
-IF OBJECT_ID(N'[dbo].[Menu]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[Menu];
-GO
-IF OBJECT_ID(N'[dbo].[Role]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[Role];
-GO
-IF OBJECT_ID(N'[dbo].[UserInfo]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[UserInfo];
+IF OBJECT_ID(N'[dbo].[UserInfoRole]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[UserInfoRole];
 GO
 
 -- --------------------------------------------------
@@ -82,7 +88,6 @@ GO
 -- Creating table 'UserInfo'
 CREATE TABLE [dbo].[UserInfo] (
     [Id] int IDENTITY(1,1) NOT NULL,
-    [RoleId] int  NOT NULL,
     [UserName] nvarchar(max)  NOT NULL,
     [Password] nvarchar(max)  NOT NULL
 );

@@ -1,5 +1,6 @@
 ﻿using RoleManagement.EFDAL;
 using RoleManagement.Model;
+using RoleManagement.Service;
 using RoleManagement.Utils;
 using System;
 using System.Collections;
@@ -172,8 +173,20 @@ namespace ConsoleApp1
 
 
             InitializeDatabase ID = new InitializeDatabase();
+            //UserInfoService userInfoService = new UserInfoService();
+            //UserInfo userinfo = userInfoService.GetEntities(u => u.Id == 1).First();
+            //RoleService roleService = new RoleService();
+            //Role role = roleService.GetEntities(u => u.Id == 1).First();
+            //role.UserInfo.Add(userinfo);
 
-
+            //TestDataModelContainer td = new TestDataModelContainer();
+            //teacher t=td.teacher.Add(new teacher
+            //{
+            //    Name = "zhaosi"
+            //});
+            //classes classes= td.classes.Where(u => u.Id == 1).FirstOrDefault();
+            //classes.teacher.Add(t);
+            //td.SaveChanges();
             Console.WriteLine("asdf");
             Console.ReadLine();
         }

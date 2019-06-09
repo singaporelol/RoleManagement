@@ -97,6 +97,10 @@
       <Project>{51382D27-BF89-4B57-B100-AE16FF7D4AFE}</Project>
       <Name>RoleManagement.Model</Name>
     </ProjectReference>
+    <ProjectReference Include="..\RoleManagement.Service\RoleManagement.Service.csproj">
+      <Project>{390FB10F-E6CA-47FB-A430-AF13628C033F}</Project>
+      <Name>RoleManagement.Service</Name>
+    </ProjectReference>
     <ProjectReference Include="..\RoleManagement.Utils\RoleManagement.Utils.csproj">
       <Project>{32917503-f9d0-4405-b575-76e31e76f459}</Project>
       <Name>RoleManagement.Utils</Name>

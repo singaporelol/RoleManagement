@@ -4,220 +4,219 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="DataModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-  <EntityContainer Name="DataModelStoreContainer">
-    <EntitySet Name="Role" EntityType="DataModel.Store.Role" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="UserInfo" EntityType="DataModel.Store.UserInfo" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="Action" EntityType="DataModel.Store.Action" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="ActionModule" EntityType="DataModel.Store.ActionModule" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="Menu" EntityType="DataModel.Store.Menu" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="ActionRole" EntityType="DataModel.Store.ActionRole" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="ActionActionModule" EntityType="DataModel.Store.ActionActionModule" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="ActionMenu" EntityType="DataModel.Store.ActionMenu" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="UserInfoRole" EntityType="DataModel.Store.UserInfoRole" store:Type="Tables" Schema="dbo" />
-    <AssociationSet Name="FK_ActionRole_Action" Association="DataModel.Store.FK_ActionRole_Action">
-      <End Role="Action" EntitySet="Action" />
-      <End Role="ActionRole" EntitySet="ActionRole" />
-    </AssociationSet>
-    <AssociationSet Name="FK_ActionRole_Role" Association="DataModel.Store.FK_ActionRole_Role">
-      <End Role="Role" EntitySet="Role" />
-      <End Role="ActionRole" EntitySet="ActionRole" />
-    </AssociationSet>
-    <AssociationSet Name="FK_ActionActionModule_Action" Association="DataModel.Store.FK_ActionActionModule_Action">
-      <End Role="Action" EntitySet="Action" />
-      <End Role="ActionActionModule" EntitySet="ActionActionModule" />
-    </AssociationSet>
-    <AssociationSet Name="FK_ActionActionModule_ActionModule" Association="DataModel.Store.FK_ActionActionModule_ActionModule">
-      <End Role="ActionModule" EntitySet="ActionModule" />
-      <End Role="ActionActionModule" EntitySet="ActionActionModule" />
-    </AssociationSet>
-    <AssociationSet Name="FK_ActionMenu_Action" Association="DataModel.Store.FK_ActionMenu_Action">
-      <End Role="Action" EntitySet="Action" />
-      <End Role="ActionMenu" EntitySet="ActionMenu" />
-    </AssociationSet>
-    <AssociationSet Name="FK_ActionMenu_Menu" Association="DataModel.Store.FK_ActionMenu_Menu">
-      <End Role="Menu" EntitySet="Menu" />
-      <End Role="ActionMenu" EntitySet="ActionMenu" />
-    </AssociationSet>
-    <AssociationSet Name="FK_UserInfoRole_UserInfo" Association="DataModel.Store.FK_UserInfoRole_UserInfo">
-      <End Role="UserInfo" EntitySet="UserInfo" />
-      <End Role="UserInfoRole" EntitySet="UserInfoRole" />
-    </AssociationSet>
-    <AssociationSet Name="FK_UserInfoRole_Role" Association="DataModel.Store.FK_UserInfoRole_Role">
-      <End Role="Role" EntitySet="Role" />
-      <End Role="UserInfoRole" EntitySet="UserInfoRole" />
-    </AssociationSet>
-  </EntityContainer>
-  <EntityType Name="Role">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="RoleName" Type="nvarchar(max)" Nullable="false" />
-  </EntityType>
-  <EntityType Name="UserInfo">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="RoleId" Type="int" Nullable="false" />
-    <Property Name="UserName" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="Password" Type="nvarchar(max)" Nullable="false" />
-  </EntityType>
-  <EntityType Name="Action">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="ActionType" Type="nvarchar(max)" Nullable="false" />
-  </EntityType>
-  <EntityType Name="ActionModule">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="ParentId" Type="int" Nullable="false" />
-    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="Url" Type="nvarchar(max)" Nullable="false" />
-  </EntityType>
-  <EntityType Name="Menu">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="ParentId" Type="int" Nullable="false" />
-    <Property Name="Title" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="Url" Type="nvarchar(max)" Nullable="false" />
-  </EntityType>
-  <EntityType Name="ActionRole">
-    <Key>
-      <PropertyRef Name="Action_Id" />
-      <PropertyRef Name="Role_Id" />
-    </Key>
-    <Property Name="Action_Id" Type="int" Nullable="false" />
-    <Property Name="Role_Id" Type="int" Nullable="false" />
-  </EntityType>
-  <EntityType Name="ActionActionModule">
-    <Key>
-      <PropertyRef Name="Action_Id" />
-      <PropertyRef Name="ActionModule_Id" />
-    </Key>
-    <Property Name="Action_Id" Type="int" Nullable="false" />
-    <Property Name="ActionModule_Id" Type="int" Nullable="false" />
-  </EntityType>
-  <EntityType Name="ActionMenu">
-    <Key>
-      <PropertyRef Name="Action_Id" />
-      <PropertyRef Name="Menu_Id" />
-    </Key>
-    <Property Name="Action_Id" Type="int" Nullable="false" />
-    <Property Name="Menu_Id" Type="int" Nullable="false" />
-  </EntityType>
-  <EntityType Name="UserInfoRole">
-    <Key>
-      <PropertyRef Name="UserInfo_Id" />
-      <PropertyRef Name="Role_Id" />
-    </Key>
-    <Property Name="UserInfo_Id" Type="int" Nullable="false" />
-    <Property Name="Role_Id" Type="int" Nullable="false" />
-  </EntityType>
-  <Association Name="FK_ActionRole_Action">
-    <End Role="Action" Type="DataModel.Store.Action" Multiplicity="1" />
-    <End Role="ActionRole" Type="DataModel.Store.ActionRole" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Action">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="ActionRole">
-        <PropertyRef Name="Action_Id" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_ActionRole_Role">
-    <End Role="ActionRole" Type="DataModel.Store.ActionRole" Multiplicity="*" />
-    <End Role="Role" Type="DataModel.Store.Role" Multiplicity="1" />
-    <ReferentialConstraint>
-      <Principal Role="Role">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="ActionRole">
-        <PropertyRef Name="Role_Id" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_ActionActionModule_Action">
-    <End Role="Action" Type="DataModel.Store.Action" Multiplicity="1" />
-    <End Role="ActionActionModule" Type="DataModel.Store.ActionActionModule" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Action">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="ActionActionModule">
-        <PropertyRef Name="Action_Id" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_ActionActionModule_ActionModule">
-    <End Role="ActionActionModule" Type="DataModel.Store.ActionActionModule" Multiplicity="*" />
-    <End Role="ActionModule" Type="DataModel.Store.ActionModule" Multiplicity="1" />
-    <ReferentialConstraint>
-      <Principal Role="ActionModule">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="ActionActionModule">
-        <PropertyRef Name="ActionModule_Id" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_ActionMenu_Action">
-    <End Role="Action" Type="DataModel.Store.Action" Multiplicity="1" />
-    <End Role="ActionMenu" Type="DataModel.Store.ActionMenu" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Action">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="ActionMenu">
-        <PropertyRef Name="Action_Id" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_ActionMenu_Menu">
-    <End Role="ActionMenu" Type="DataModel.Store.ActionMenu" Multiplicity="*" />
-    <End Role="Menu" Type="DataModel.Store.Menu" Multiplicity="1" />
-    <ReferentialConstraint>
-      <Principal Role="Menu">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="ActionMenu">
-        <PropertyRef Name="Menu_Id" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_UserInfoRole_UserInfo">
-    <End Role="UserInfo" Type="DataModel.Store.UserInfo" Multiplicity="1" />
-    <End Role="UserInfoRole" Type="DataModel.Store.UserInfoRole" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="UserInfo">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="UserInfoRole">
-        <PropertyRef Name="UserInfo_Id" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_UserInfoRole_Role">
-    <End Role="UserInfoRole" Type="DataModel.Store.UserInfoRole" Multiplicity="*" />
-    <End Role="Role" Type="DataModel.Store.Role" Multiplicity="1" />
-    <ReferentialConstraint>
-      <Principal Role="Role">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="UserInfoRole">
-        <PropertyRef Name="Role_Id" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-</Schema></edmx:StorageModels>
+    <Schema Namespace="DataModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Action">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ActionType" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ActionActionModule">
+          <Key>
+            <PropertyRef Name="Action_Id" />
+            <PropertyRef Name="ActionModule_Id" />
+          </Key>
+          <Property Name="Action_Id" Type="int" Nullable="false" />
+          <Property Name="ActionModule_Id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ActionMenu">
+          <Key>
+            <PropertyRef Name="Action_Id" />
+            <PropertyRef Name="Menu_Id" />
+          </Key>
+          <Property Name="Action_Id" Type="int" Nullable="false" />
+          <Property Name="Menu_Id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ActionModule">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ParentId" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Url" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ActionRole">
+          <Key>
+            <PropertyRef Name="Action_Id" />
+            <PropertyRef Name="Role_Id" />
+          </Key>
+          <Property Name="Action_Id" Type="int" Nullable="false" />
+          <Property Name="Role_Id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Menu">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ParentId" Type="int" Nullable="false" />
+          <Property Name="Title" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Url" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RoleName" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UserInfo">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserName" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Password" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UserInfoRole">
+          <Key>
+            <PropertyRef Name="UserInfo_Id" />
+            <PropertyRef Name="Role_Id" />
+          </Key>
+          <Property Name="UserInfo_Id" Type="int" Nullable="false" />
+          <Property Name="Role_Id" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_ActionActionModule_Action">
+          <End Role="Action" Type="Self.Action" Multiplicity="1" />
+          <End Role="ActionActionModule" Type="Self.ActionActionModule" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Action">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ActionActionModule">
+              <PropertyRef Name="Action_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ActionActionModule_ActionModule">
+          <End Role="ActionModule" Type="Self.ActionModule" Multiplicity="1" />
+          <End Role="ActionActionModule" Type="Self.ActionActionModule" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ActionModule">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ActionActionModule">
+              <PropertyRef Name="ActionModule_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ActionMenu_Action">
+          <End Role="Action" Type="Self.Action" Multiplicity="1" />
+          <End Role="ActionMenu" Type="Self.ActionMenu" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Action">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ActionMenu">
+              <PropertyRef Name="Action_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ActionMenu_Menu">
+          <End Role="Menu" Type="Self.Menu" Multiplicity="1" />
+          <End Role="ActionMenu" Type="Self.ActionMenu" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Menu">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ActionMenu">
+              <PropertyRef Name="Menu_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ActionRole_Action">
+          <End Role="Action" Type="Self.Action" Multiplicity="1" />
+          <End Role="ActionRole" Type="Self.ActionRole" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Action">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ActionRole">
+              <PropertyRef Name="Action_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ActionRole_Role">
+          <End Role="Role" Type="Self.Role" Multiplicity="1" />
+          <End Role="ActionRole" Type="Self.ActionRole" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Role">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ActionRole">
+              <PropertyRef Name="Role_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserInfoRole_Role">
+          <End Role="Role" Type="Self.Role" Multiplicity="1" />
+          <End Role="UserInfoRole" Type="Self.UserInfoRole" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Role">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserInfoRole">
+              <PropertyRef Name="Role_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserInfoRole_UserInfo">
+          <End Role="UserInfo" Type="Self.UserInfo" Multiplicity="1" />
+          <End Role="UserInfoRole" Type="Self.UserInfoRole" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserInfo">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserInfoRole">
+              <PropertyRef Name="UserInfo_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DataModelStoreContainer">
+          <EntitySet Name="Action" EntityType="Self.Action" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ActionActionModule" EntityType="Self.ActionActionModule" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ActionMenu" EntityType="Self.ActionMenu" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ActionModule" EntityType="Self.ActionModule" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ActionRole" EntityType="Self.ActionRole" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Menu" EntityType="Self.Menu" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserInfo" EntityType="Self.UserInfo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserInfoRole" EntityType="Self.UserInfoRole" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_ActionActionModule_Action" Association="Self.FK_ActionActionModule_Action">
+            <End Role="Action" EntitySet="Action" />
+            <End Role="ActionActionModule" EntitySet="ActionActionModule" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ActionActionModule_ActionModule" Association="Self.FK_ActionActionModule_ActionModule">
+            <End Role="ActionModule" EntitySet="ActionModule" />
+            <End Role="ActionActionModule" EntitySet="ActionActionModule" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ActionMenu_Action" Association="Self.FK_ActionMenu_Action">
+            <End Role="Action" EntitySet="Action" />
+            <End Role="ActionMenu" EntitySet="ActionMenu" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ActionMenu_Menu" Association="Self.FK_ActionMenu_Menu">
+            <End Role="Menu" EntitySet="Menu" />
+            <End Role="ActionMenu" EntitySet="ActionMenu" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ActionRole_Action" Association="Self.FK_ActionRole_Action">
+            <End Role="Action" EntitySet="Action" />
+            <End Role="ActionRole" EntitySet="ActionRole" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ActionRole_Role" Association="Self.FK_ActionRole_Role">
+            <End Role="Role" EntitySet="Role" />
+            <End Role="ActionRole" EntitySet="ActionRole" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserInfoRole_Role" Association="Self.FK_UserInfoRole_Role">
+            <End Role="Role" EntitySet="Role" />
+            <End Role="UserInfoRole" EntitySet="UserInfoRole" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserInfoRole_UserInfo" Association="Self.FK_UserInfoRole_UserInfo">
+            <End Role="UserInfo" EntitySet="UserInfo" />
+            <End Role="UserInfoRole" EntitySet="UserInfoRole" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="DataModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
@@ -258,7 +257,6 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="RoleId" Type="Int32" Nullable="false" />
           <Property Name="UserName" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
           <Property Name="Password" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
           <NavigationProperty Name="Role" Relationship="DataModel.UserInfoRole" FromRole="UserInfo" ToRole="Role" />
@@ -327,7 +325,6 @@
       <EntityTypeMapping TypeName="IsTypeOf(DataModel.UserInfo)">
         <MappingFragment StoreEntitySet="UserInfo">
           <ScalarProperty Name="Id" ColumnName="Id" />
-          <ScalarProperty Name="RoleId" ColumnName="RoleId" />
           <ScalarProperty Name="UserName" ColumnName="UserName" />
           <ScalarProperty Name="Password" ColumnName="Password" />
         </MappingFragment>
