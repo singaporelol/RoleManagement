@@ -16,28 +16,31 @@ namespace RoleManagement.Service
         {
             GetCurrentDal = new UserInfoDal();
         }
-        public List<ActionModule> GetUserActionModule(UserInfo userinfo)
+        
+        public UserAction GetAllAction(UserInfo userinfo)
         {
-            List<ActionModule> listActionModule = new List<ActionModule>();
-            //userinfo.Role.Action.Where(u => u.ActionType == "module").FirstOrDefault();
-            return listActionModule;
-        }
-        public List<Menu> GetUserMenu(UserInfo userinfo)
-        {
+            UserAction userAction = new UserAction();
+            
             //拿到用户所对应的角色
             var allRole = userinfo.Role;
             //拿到角色所对应的权限
-            var allAction = from r in allRole
-                            select r.Action;
+            var roleActionList= (from r in allRole
+                            select r.Action).ToList();
             List<Menu> AllMenu = new List<Menu>();
-            //foreach (var item in allAction)
-            //{
-
-            //}
-            //    .Where(u => u.ActionType == "menu").FirstOrDefault().Menu.OrderBy(v => v.ParentId).ToList();
-            //List<Menu> rootList = LoadUserMenu(menu, 0);
-            List<Menu> rootList = new List<Menu>();
-            return rootList;
+            List<ActionModule> AllActionModule = new List<ActionModule>();
+            foreach (var actionList in roleActionList)
+            {
+               foreach(var item in actionList)
+                {
+                    //加载登录用户对应的权限菜单
+                    AllMenu = AllMenu.Concat(item.Menu).Distinct().OrderBy(v=>v.ParentId).ToList();
+                    //加载登录用户对应的权限模块
+                    AllActionModule = AllActionModule.Concat(item.ActionModule).Distinct().OrderBy(v => v.ParentId).ToList();
+                }
+            }
+            userAction.MenuList = LoadUserMenu(AllMenu, 0);
+            userAction.ActionModuleList = LoadActionModuleMenu(AllActionModule, 0);
+            return userAction;
             
             #region 取消2级菜单
             //List<Action> rootList = new List<Action>();
@@ -100,6 +103,22 @@ namespace RoleManagement.Service
             }
             return rootList;
         }
+        public List<ActionModule> LoadActionModuleMenu(List<ActionModule> actionModulemenu, int pId)
+        {
+            List<ActionModule> rootList = new List<ActionModule>();
+            List<ActionModule> rootMenu = actionModulemenu.Where(u => u.ParentId == pId).ToList();
+            foreach (var item in rootMenu)
+            {
+                rootList.Add(new ActionModule
+                {
+                    Name=item.Name,
+                    Id = item.Id,
+                    Url = item.Url,
+                    ChildMenu = LoadActionModuleMenu(actionModulemenu, item.Id)
+                });
 
+            }
+            return rootList;
+        }
     }
 }

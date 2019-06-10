@@ -80,6 +80,7 @@
     <Compile Include="Role.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="UserAction.cs" />
     <Compile Include="UserInfo.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>

@@ -30,17 +30,19 @@ namespace RoleManagementWebAPI.Controllers
                     data = ""
                 });
             }
-            //加载登录用户对应的权限菜单
-            var userMenu=userInfoService.GetUserMenu(userinfo);
-            //加载登录用户对应的权限模块
-            var actionModule = userInfoService.GetUserActionModule(userinfo);
+            //拿到用户的所有权限，菜单等
+            UserAction user=userInfoService.GetAllAction(userinfo);
             var dataObj = new
             {
                 code = 1,
-                userMenu = JsonConvert.SerializeObject(userMenu,Formatting.None, new JsonSerializerSettings {
+                userMenu = JsonConvert.SerializeObject(user.MenuList,Formatting.None, new JsonSerializerSettings {
                     ReferenceLoopHandling = ReferenceLoopHandling.Ignore,
                     PreserveReferencesHandling =PreserveReferencesHandling.None }),
-
+                userActionModule = JsonConvert.SerializeObject(user.ActionModuleList, Formatting.None, new JsonSerializerSettings
+                {
+                    ReferenceLoopHandling = ReferenceLoopHandling.Ignore,
+                    PreserveReferencesHandling = PreserveReferencesHandling.None
+                }),
                 userinfo = new
                 {
                     userinfo.UserName,

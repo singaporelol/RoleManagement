@@ -16,8 +16,7 @@ namespace ConsoleApp1
     {
         static void Main(string[] args)
         {
-
-
+            
             #region 添加数据库
             //test test = new test
             //{
@@ -201,7 +200,7 @@ namespace ConsoleApp1
             //classes.teacher.Add(t);
             //td.SaveChanges(); 
             #endregion
-            InitializeDatabase ID = new InitializeDatabase();
+            //InitializeDatabase ID = new InitializeDatabase();
 
             Console.WriteLine("asdf");
             Console.ReadLine();

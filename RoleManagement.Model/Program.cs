@@ -10,4 +10,8 @@ namespace RoleManagement.Model
     {
          public List<Menu> ChildMenu { get; set; }
     }
+    public partial class ActionModule
+    {
+        public List<ActionModule> ChildMenu { get; set; }
+    }
 }
