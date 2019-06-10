@@ -10,10 +10,10 @@ namespace RoleManagement.Utils
     {
         public InitializeDatabase()
         {
-            //InitializeMenu();
-            //InitializeActionModule();
-            //InitializeAction();
-            //InitializeRole();
+            InitializeMenu();
+            InitializeActionModule();
+            InitializeAction();
+            InitializeRole();
             InitializeUserInfo();
         }
         public void InitializeUserInfo()
@@ -26,7 +26,8 @@ namespace RoleManagement.Utils
                 Password = "123",
             });
             //UserInfo userinfo = userInfoService.GetEntities(u => u.Id == 1).FirstOrDefault();
-            roleService.GetEntities(u => u.RoleName == "系统管理员").ToList().ForEach(m=>m.UserInfo.Add(userinfo));
+            roleService.GetEntities(u => u.RoleName == "系统管理员").FirstOrDefault().UserInfo.Add(userinfo);
+            roleService.SaveChanges();
             
         }
         public void InitializeRole()

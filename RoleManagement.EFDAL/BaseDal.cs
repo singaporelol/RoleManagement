@@ -65,7 +65,10 @@ namespace RoleManagement.EFDAL
         {
             return dbcontext.Set<T>().Find(id);
         }
-
+        public int SaveChanges()
+        {
+            return dbcontext.SaveChanges();
+        }
         public T Add(T user)
         {
             dbcontext.Set<T>().Add(user);

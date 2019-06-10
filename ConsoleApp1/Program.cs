@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Action = RoleManagement.Model.Action;
 
 namespace ConsoleApp1
 {
@@ -171,22 +172,37 @@ namespace ConsoleApp1
             //dbContainer.SaveChanges(); 
             #endregion
 
-
-            InitializeDatabase ID = new InitializeDatabase();
+            #region 多对多添加实体，保存更改
             //UserInfoService userInfoService = new UserInfoService();
-            //UserInfo userinfo = userInfoService.GetEntities(u => u.Id == 1).First();
+            //UserInfo userinfo = userInfoService.Add(new UserInfo
+            //{
+            //    UserName = "admin",
+            //    Password = "123"
+            //});
+
             //RoleService roleService = new RoleService();
             //Role role = roleService.GetEntities(u => u.Id == 1).First();
-            //role.UserInfo.Add(userinfo);
+            //userinfo.Role.Add(role);
+            //userInfoService.SaveChanges();
+            //ActionService actionService = new ActionService();
+            //Action action = actionService.Add(new RoleManagement.Model.Action
+            //{
+            //    ActionType = "test4"
+            //});
+            //role.Action.Add(action);
+            //roleService.SaveChanges();
 
             //TestDataModelContainer td = new TestDataModelContainer();
-            //teacher t=td.teacher.Add(new teacher
+            //teacher t = td.teacher.Add(new teacher
             //{
             //    Name = "zhaosi"
             //});
-            //classes classes= td.classes.Where(u => u.Id == 1).FirstOrDefault();
+            //classes classes = td.classes.Where(u => u.Id == 1).FirstOrDefault();
             //classes.teacher.Add(t);
-            //td.SaveChanges();
+            //td.SaveChanges(); 
+            #endregion
+            InitializeDatabase ID = new InitializeDatabase();
+
             Console.WriteLine("asdf");
             Console.ReadLine();
         }

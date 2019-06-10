@@ -20,7 +20,10 @@ namespace RoleManagement.Service
         {
             return GetCurrentDal.GetEntityById(id);
         }
-
+        public int SaveChanges()
+        {
+            return GetCurrentDal.SaveChanges();
+        }
         public IQueryable<T> GetEntities(Expression<Func<T, bool>> whereLambda)
         {
             return GetCurrentDal.GetEntities(whereLambda);
