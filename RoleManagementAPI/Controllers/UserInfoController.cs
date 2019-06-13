@@ -35,14 +35,19 @@ namespace RoleManagementWebAPI.Controllers
             var dataObj = new
             {
                 code = 1,
-                userMenu = JsonConvert.SerializeObject(user.MenuList,Formatting.None, new JsonSerializerSettings {
-                    ReferenceLoopHandling = ReferenceLoopHandling.Ignore,
-                    PreserveReferencesHandling =PreserveReferencesHandling.None }),
-                userActionModule = JsonConvert.SerializeObject(user.ActionModuleList, Formatting.None, new JsonSerializerSettings
+                userAllAction = JsonConvert.SerializeObject(user, Formatting.None, new JsonSerializerSettings
                 {
                     ReferenceLoopHandling = ReferenceLoopHandling.Ignore,
                     PreserveReferencesHandling = PreserveReferencesHandling.None
                 }),
+                //userMenu = JsonConvert.SerializeObject(user.MenuList,Formatting.None, new JsonSerializerSettings {
+                //    ReferenceLoopHandling = ReferenceLoopHandling.Ignore,
+                //    PreserveReferencesHandling =PreserveReferencesHandling.None }),
+                //userActionModule = JsonConvert.SerializeObject(user.ActionModuleList, Formatting.None, new JsonSerializerSettings
+                //{
+                //    ReferenceLoopHandling = ReferenceLoopHandling.Ignore,
+                //    PreserveReferencesHandling = PreserveReferencesHandling.None
+                //}),
                 userinfo = new
                 {
                     userinfo.UserName,
