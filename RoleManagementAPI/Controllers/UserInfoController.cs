@@ -21,7 +21,7 @@ namespace RoleManagementWebAPI.Controllers
         public IHttpActionResult GetUserAuth(string name)
         {
             //验证用户是否存在
-            UserInfo userinfo = userInfoService.GetEntities(u => u.UserName == name).ToList()[0];
+            UserInfo userinfo = userInfoService.GetEntities(u => u.UserName == name).ToList().FirstOrDefault();
             if (userinfo == null)
             {
                 return Ok(new
@@ -58,7 +58,21 @@ namespace RoleManagementWebAPI.Controllers
 
             return Ok(dataObj);
         }
-
+        [HttpGet]
+        [Route("api/GetUserinfoByName")]
+        public IHttpActionResult GetUserinfoByName([FromUri] string UserName)
+        {
+            UserInfo userinfo = userInfoService.GetEntities(u=>u.UserName==UserName).ToList().FirstOrDefault();
+            
+            var dataObj = new {
+                code = 0,
+                data = new
+                {
+                    exist = userinfo==null?false:true
+                }
+            };
+            return Ok(dataObj);
+        }
         public IHttpActionResult Get(int id)
         {
             var k= userInfoService.GetEntityById(id);
