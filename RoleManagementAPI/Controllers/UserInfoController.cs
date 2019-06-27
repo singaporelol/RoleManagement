@@ -73,6 +73,46 @@ namespace RoleManagementWebAPI.Controllers
             };
             return Ok(dataObj);
         }
+        [HttpPut]
+        [Route("api/editUserForm")]
+        public IHttpActionResult EditUserForm([FromBody] dynamic data)
+        {
+            string UserName = (String)data["UserName"].Value;
+            int Id = Convert.ToInt32(data["Id"].Value);
+            UserInfo userinfo = userInfoService.GetEntities(u=>u.Id==Id).FirstOrDefault();
+            userinfo.UserName = UserName;
+            bool result=userInfoService.Update(userinfo);
+            if (result == false)
+            {
+                return Ok(new
+                {
+                    code = 0,
+                    data = ""
+                });
+            }
+            return Ok(new { code = 1 });
+        }
+        [HttpPost]
+        [Route("api/addUserForm")]
+        public IHttpActionResult AddUserForm([FromBody] dynamic data)
+        {
+            string UserName = (String)data["UserName"].Value;
+            string Password = (String)data["Password"].Value;
+            UserInfo userinfo = userInfoService.GetEntities(u => u.UserName==UserName).FirstOrDefault();
+            if (userinfo != null)
+            {
+                return Ok(new
+                {
+                    code = 0,
+                    data = ""
+                });
+            }
+            userInfoService.Add(new UserInfo {
+                UserName=UserName,
+                Password=Password
+            });
+            return Ok(new { code = 1 });
+        }
         public IHttpActionResult Get(int id)
         {
             var k= userInfoService.GetEntityById(id);

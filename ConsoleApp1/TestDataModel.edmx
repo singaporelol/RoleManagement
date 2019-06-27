@@ -27,6 +27,14 @@
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
         </EntityType>
+        <EntityType Name="UserInfo">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserName" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Password" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
         <Association Name="FK_classesteachers_classes">
           <End Role="classes" Type="Self.classes" Multiplicity="1" />
           <End Role="classesteachers" Type="Self.classesteachers" Multiplicity="*" />
@@ -55,6 +63,7 @@
           <EntitySet Name="classes" EntityType="Self.classes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="classesteachers" EntityType="Self.classesteachers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="teacher" EntityType="Self.teacher" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserInfo" EntityType="Self.UserInfo" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_classesteachers_classes" Association="Self.FK_classesteachers_classes">
             <End Role="classes" EntitySet="classes" />
             <End Role="classesteachers" EntitySet="classesteachers" />
@@ -75,6 +84,7 @@
             <End Role="classes" EntitySet="classes" />
             <End Role="teacher" EntitySet="teacher" />
           </AssociationSet>
+          <EntitySet Name="UserInfo" EntityType="TestDataModel.UserInfo" />
         </EntityContainer>
         <EntityType Name="classes">
           <Key>
@@ -96,6 +106,14 @@
           <End Type="TestDataModel.classes" Role="classes" Multiplicity="*" />
           <End Type="TestDataModel.teacher" Role="teacher" Multiplicity="*" />
         </Association>
+        <EntityType Name="UserInfo">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserName" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -128,6 +146,15 @@
               <ScalarProperty Name="Id" ColumnName="classes_Id" />
             </EndProperty>
           </AssociationSetMapping>
+          <EntitySetMapping Name="UserInfo">
+            <EntityTypeMapping TypeName="TestDataModel.UserInfo">
+              <MappingFragment StoreEntitySet="UserInfo">
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

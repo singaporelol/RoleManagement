@@ -27,5 +27,6 @@ namespace ConsoleApp1
     
         public virtual DbSet<classes> classes { get; set; }
         public virtual DbSet<teacher> teacher { get; set; }
+        public virtual DbSet<UserInfo> UserInfo { get; set; }
     }
 }

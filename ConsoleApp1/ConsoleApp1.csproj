@@ -76,6 +76,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>TestDataModel.edmx</DependentUpon>
     </Compile>
+    <Compile Include="UserInfo.cs">
+      <DependentUpon>TestDataModel.tt</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
