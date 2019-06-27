@@ -113,6 +113,21 @@ namespace RoleManagementWebAPI.Controllers
             });
             return Ok(new { code = 1 });
         }
+        [HttpDelete]
+        [Route("api/deleteUserFormByIds")]
+        public IHttpActionResult DeleteUserFormByIds([FromUri] string Id)
+        {
+            
+            List<int> list=JsonConvert.DeserializeObject<List<int>>(Id);
+            //userInfoService
+            Array userinfoList=userInfoService.GetEntities(r => list.Contains(r.Id)).ToArray();
+            bool result=userInfoService.DeleteRange(userinfoList);
+            if (!result)
+            {
+                return Ok(new { code = 0 });
+            }
+            return Ok(new { code = 1 });
+        }
         public IHttpActionResult Get(int id)
         {
             var k= userInfoService.GetEntityById(id);
