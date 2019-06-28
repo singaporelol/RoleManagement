@@ -58,9 +58,9 @@ namespace RoleManagement.Service
             return GetCurrentDal.Delete(user);
         }
 
-        public bool DeleteRange(Array user)
+        public bool DeleteRange(IQueryable<T> items)
         {
-            return GetCurrentDal.DeleteRange(user);
+            return GetCurrentDal.DeleteRange(items);
         }
 
     }

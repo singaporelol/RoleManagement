@@ -120,7 +120,7 @@ namespace RoleManagementWebAPI.Controllers
             
             List<int> list=JsonConvert.DeserializeObject<List<int>>(Id);
             //userInfoService
-            Array userinfoList=userInfoService.GetEntities(r => list.Contains(r.Id)).ToArray();
+            IQueryable<UserInfo> userinfoList=userInfoService.GetEntities(r => list.Contains(r.Id));
             bool result=userInfoService.DeleteRange(userinfoList);
             if (!result)
             {

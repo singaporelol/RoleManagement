@@ -98,9 +98,9 @@ namespace RoleManagementWebAPI.Controllers
         [Route("api/deleteRoles")]
         public IHttpActionResult DeleteRoles([FromUri] string ids)
         {
-            Array idarr=ids.Substring(1, ids.Length - 2).Split(',');
-            
-            bool result = roleService.DeleteRange(idarr);
+            List<string> idarr=ids.Substring(1, ids.Length - 2).Split(',').ToList();
+            IQueryable<Role> roles=roleService.GetEntities(u => idarr.Contains(u.Id.ToString()));
+            bool result = roleService.DeleteRange(roles);
             if (result == false)
             {
                 return Ok(new

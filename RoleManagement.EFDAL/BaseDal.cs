@@ -93,13 +93,11 @@ namespace RoleManagement.EFDAL
             return dbcontext.SaveChanges() > 0;
         }
 
-        public bool DeleteRange(Array ids)
+        public bool DeleteRange(IQueryable<T> items)
         {
-            foreach (var item in ids)
-            {
-                int s = Convert.ToInt32(item);
-                dbcontext.Set<T>().Remove(dbcontext.Set<T>().Find(s));
-            }
+            
+            dbcontext.Set<T>().RemoveRange(items);
+            
             return dbcontext.SaveChanges() > 0;
         }
         #endregion
