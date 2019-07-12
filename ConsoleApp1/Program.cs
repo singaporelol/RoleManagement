@@ -200,9 +200,9 @@ namespace ConsoleApp1
             //classes.teacher.Add(t);
             //td.SaveChanges(); 
             #endregion
-            
 
-            //InitializeDatabase ID = new InitializeDatabase();
+
+            InitializeDatabase ID = new InitializeDatabase();
             Console.WriteLine("asdf");
             Console.ReadLine();
         }
