@@ -6,7 +6,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
-
+using System.Web.Providers.Entities;
 
 namespace RoleManagement.Service
 {
@@ -38,8 +38,11 @@ namespace RoleManagement.Service
                     AllActionModule = AllActionModule.Concat(item.ActionModule).Distinct().OrderBy(v => v.ParentId).ToList();
                 }
             }
-            userAction.MenuList = LoadUserMenu(AllMenu, 0);
-            userAction.ActionModuleList = LoadActionModuleMenu(AllActionModule, 0);
+            //把菜单数组修改为树状菜单
+            //userAction.MenuList = LoadUserMenu(AllMenu, 0);
+            //userAction.ActionModuleList = LoadActionModuleMenu(AllActionModule, 0);
+            userAction.MenuList = AllMenu;
+            userAction.ActionModuleList =AllActionModule;
             return userAction;
             
             #region 取消2级菜单

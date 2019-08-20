@@ -23,6 +23,7 @@ namespace RoleManagement.EFDAL
             if (db == null)
             {
                 db = new DataModelContainer();
+                //db.Configuration.LazyLoadingEnabled = false;
                 CallContext.SetData("DbContext", db);
             }
             return db;

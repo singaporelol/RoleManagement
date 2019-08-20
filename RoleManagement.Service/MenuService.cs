@@ -14,5 +14,10 @@ namespace RoleManagement.Service
         {
             GetCurrentDal = new MenuDal();
         }
+
+        public List<Menu> getMenuList()
+        {
+            return new List<Menu>();
+        }
     }
 }

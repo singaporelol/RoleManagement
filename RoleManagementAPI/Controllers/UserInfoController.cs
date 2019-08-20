@@ -5,49 +5,67 @@ using RoleManagementWebAPI.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 using Action = RoleManagement.Model.Action;
+using System.Collections;
+using System.Web.Services;
+using System.Web;
+using RoleManagementAPI;
+using System.Net.Http;
+using System.Net.Http.Headers;
 
 namespace RoleManagementWebAPI.Controllers
 {
+    
     public class UserInfoController : ApiController
     {
         UserInfoService userInfoService = new UserInfoService();
         //getUserAuth
         [HttpGet]
         [Route("api/GetUserAuth")]
-        public IHttpActionResult GetUserAuth(string name)
+        [WebMethod(EnableSession=true)]
+        [BaseAuthenticationAttribute(IsCheck =false)]
+        public IHttpActionResult GetUserAuth(string username,string password)
         {
             //验证用户是否存在
-            UserInfo userinfo = userInfoService.GetEntities(u => u.UserName == name).ToList().FirstOrDefault();
+            UserInfo userinfo = userInfoService.GetEntities(u => u.UserName == username && u.Password==password).ToList().FirstOrDefault();
             if (userinfo == null)
             {
                 return Ok(new
                 {
                     code = 0,
-                    data = ""
+                    errMsg = "账号或密码错误，请重新输入"
                 });
             }
+            //把用户登录信息存到session中
+            HttpContext.Current.Session.Add("userinfo", userinfo);
+            //var session_value = HttpContext.Current.Session["abc"];
+            string userLoginId = Guid.NewGuid().ToString();
+            var resp = new HttpResponseMessage();
+            resp.Headers.AddCookies(new CookieHeaderValue[] { new CookieHeaderValue("Authorization1", userLoginId) });
+            
             //拿到用户的所有权限，菜单等
-            UserAction user=userInfoService.GetAllAction(userinfo);
+            UserAction user = userInfoService.GetAllAction(userinfo);
             var dataObj = new
             {
                 code = 1,
-                userAllAction = JsonConvert.SerializeObject(user, Formatting.None, new JsonSerializerSettings
-                {
-                    ReferenceLoopHandling = ReferenceLoopHandling.Ignore,
-                    PreserveReferencesHandling = PreserveReferencesHandling.None
-                }),
-                //userMenu = JsonConvert.SerializeObject(user.MenuList,Formatting.None, new JsonSerializerSettings {
+                #region 
+                //userAllAction = JsonConvert.SerializeObject(user, Formatting.None, new JsonSerializerSettings
+                //{
                 //    ReferenceLoopHandling = ReferenceLoopHandling.Ignore,
-                //    PreserveReferencesHandling =PreserveReferencesHandling.None }),
+                //    PreserveReferencesHandling = PreserveReferencesHandling.None
+                //}),
+                //userMenu = JsonConvert.SerializeObject(user.MenuList, Formatting.None, new JsonSerializerSettings
+                //{
+                //    ReferenceLoopHandling = ReferenceLoopHandling.Ignore,
+                //    PreserveReferencesHandling = PreserveReferencesHandling.None
+                //}),
                 //userActionModule = JsonConvert.SerializeObject(user.ActionModuleList, Formatting.None, new JsonSerializerSettings
                 //{
                 //    ReferenceLoopHandling = ReferenceLoopHandling.Ignore,
                 //    PreserveReferencesHandling = PreserveReferencesHandling.None
                 //}),
+                #endregion
                 userinfo = new
                 {
                     userinfo.UserName,
@@ -58,6 +76,8 @@ namespace RoleManagementWebAPI.Controllers
 
             return Ok(dataObj);
         }
+
+        [BaseAuthenticationAttribute(IsCheck = true)]
         [HttpGet]
         [Route("api/GetUserinfoByName")]
         public IHttpActionResult GetUserinfoByName([FromUri] string UserName)
@@ -73,6 +93,7 @@ namespace RoleManagementWebAPI.Controllers
             };
             return Ok(dataObj);
         }
+        [BaseAuthenticationAttribute(IsCheck = true)]
         [HttpPut]
         [Route("api/editUserForm")]
         public IHttpActionResult EditUserForm([FromBody] dynamic data)
@@ -94,6 +115,7 @@ namespace RoleManagementWebAPI.Controllers
         }
         [HttpPost]
         [Route("api/addUserForm")]
+        [BaseAuthenticationAttribute(IsCheck = true)]
         public IHttpActionResult AddUserForm([FromBody] dynamic data)
         {
             string UserName = (String)data["UserName"].Value;
@@ -115,6 +137,7 @@ namespace RoleManagementWebAPI.Controllers
         }
         [HttpDelete]
         [Route("api/deleteUserFormByIds")]
+        [BaseAuthenticationAttribute(IsCheck = true)]
         public IHttpActionResult DeleteUserFormByIds([FromUri] string Id)
         {
             
@@ -128,6 +151,7 @@ namespace RoleManagementWebAPI.Controllers
             }
             return Ok(new { code = 1 });
         }
+        [BaseAuthenticationAttribute(IsCheck = true)]
         public IHttpActionResult Get(int id)
         {
             var k= userInfoService.GetEntityById(id);
@@ -151,6 +175,7 @@ namespace RoleManagementWebAPI.Controllers
            
             return Ok(dataObj);
         }
+        [BaseAuthenticationAttribute(IsCheck = true)]
         public IHttpActionResult Get()
         {
 

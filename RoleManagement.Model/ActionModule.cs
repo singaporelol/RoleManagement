@@ -11,6 +11,7 @@ namespace RoleManagement.Model
 {
     using System;
     using System.Collections.Generic;
+    using Newtonsoft.Json;
     
     public partial class ActionModule
     {
@@ -26,6 +27,7 @@ namespace RoleManagement.Model
         public string Url { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+    	[JsonIgnore]
         public virtual ICollection<Action> Action { get; set; }
     }
 }
