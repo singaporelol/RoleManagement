@@ -39,7 +39,7 @@ namespace RoleManagementAPI.Controllers
         }
         [HttpGet]
         [Route("api/setCookie")]
-        public IHttpActionResult setCookie()
+        public HttpResponseMessage setCookie()
         {
             var resp = new HttpResponseMessage();
 
@@ -49,7 +49,7 @@ namespace RoleManagementAPI.Controllers
             cookie.Path = "/";
 
             resp.Headers.AddCookies(new CookieHeaderValue[] { cookie });
-            return Ok();
+            return resp;
         }
         [HttpGet]
         [Route("api/getCookie")]
